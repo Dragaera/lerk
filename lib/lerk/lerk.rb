@@ -18,6 +18,7 @@ module Lerk
 
       @bot = Discordrb::Commands::CommandBot.new(token: @token, client_id: @client_id, prefix: @prefix)
 
+      create_rate_limiters
       bind_commands
     end
 
@@ -32,8 +33,28 @@ module Lerk
     private
     def bind_commands
       @bot.command :hive2 do |event, steam_id|
+        if @rate_limiter.rate_limited?(:hive2_api_calls, :hive_get_player_data)
+          msg = <<EOF
+Hello there!
+
+You have reached the rate limit of Hive 2 queries.
+Please wait a few seconds before you issue another query. :)
+EOF
+          event.author.pm msg
+          next
+        end
         cmd_hive2(event, steam_id)
       end
+
+      @bot.command :hi do |event|
+        event.author.pm 'Hai'
+      end
+    end
+
+    def create_rate_limiters
+      @rate_limiter = Discordrb::Commands::SimpleRateLimiter.new
+      # Global rate limit.
+      @rate_limiter.bucket :hive2_api_calls, limit: Config::HIVE2_RATE_LIMIT, time_span: Config::HIVE2_RATE_TIME_SPAN
     end
 
     def cmd_hive2(event, steam_id)
