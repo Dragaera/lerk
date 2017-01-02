@@ -8,6 +8,8 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
+- Per-user and global rate limits.
+
 ### Changed
 
 ### Fixed
