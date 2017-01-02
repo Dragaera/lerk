@@ -8,7 +8,11 @@ module Lerk
     STEAM_WEB_API_KEY    = ENV.fetch('STEAM_WEB_API_KEY', '')
 
     # Defaults to 2/s
-    HIVE2_RATE_LIMIT     = ENV.fetch('HIVE2_RATE_LIMIT', 2).to_i
-    HIVE2_RATE_TIME_SPAN = ENV.fetch('HIVE2_RATE_TIME_SPAN', 1).to_i
+    HIVE2_GLOBAL_RATE_LIMIT     = ENV.fetch('HIVE2_GLOBAL_RATE_LIMIT', 2).to_i
+    HIVE2_GLOBAL_RATE_TIME_SPAN = ENV.fetch('HIVE2_GLOBAL_RATE_TIME_SPAN', 1).to_i
+
+    # Defaults to 1/s
+    HIVE2_USER_RATE_LIMIT     = ENV.fetch('HIVE2_USER_RATE_LIMIT', 1).to_i
+    HIVE2_USER_RATE_TIME_SPAN = ENV.fetch('HIVE2_USER_RATE_TIME_SPAN', 1).to_i
   end
 end
