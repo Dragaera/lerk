@@ -20,7 +20,12 @@ module Lerk
       @steam_web_api_key = steam_web_api_key
       @prefix            = prefix
 
-      @bot = Discordrb::Commands::CommandBot.new(token: @token, client_id: @client_id, prefix: @prefix)
+      @bot = Discordrb::Commands::CommandBot.new(
+        token:        @token,
+        client_id:    @client_id,
+        prefix:       @prefix,
+        help_command: :help,
+      )
 
       create_rate_limiters
       bind_commands
@@ -36,8 +41,14 @@ module Lerk
 
     private
     def bind_commands
-      @bot.command :hive2 do |event, steam_id|
-        # Per-use rate limit
+      @bot.command(
+        [:hive2, :hive],
+        description: 'Query Hive 2 player data',
+        usage: '!hive [Steam ID, Default: Discord user]',
+        min_args: 0,
+        max_args: 1,
+      ) do |event, steam_id|
+        # Per-user rate limit
          if @rate_limiter.rate_limited?(:hive2_user_api_calls, event.author)
            puts "Hit rate limit for #{ event.author.username }, throttling..."
            msg = <<EOF
@@ -58,10 +69,6 @@ EOF
 
         cmd_hive2(event, steam_id)
       end
-
-      @bot.command :hi do |event|
-        event.author.pm 'Hai'
-      end
     end
 
     def create_rate_limiters
@@ -81,9 +88,7 @@ EOF
     end
 
     def cmd_hive2(event, steam_id)
-      if steam_id.nil?
-        return "Usage: #{ @prefix }hive2 <Steam ID>"
-      end
+      steam_id ||= event.author.username
 
       account_id = resolve_account_id(steam_id)
       if account_id.nil?
@@ -92,7 +97,7 @@ EOF
 
       data = get_player_data(account_id)
       if data.nil?
-        return "Could not retrieve your data."
+        return "Could not retrieve data for ID #{ steam_id } (Account: #{ account_id })."
       end
 
       'Skill: %{skill}, Level: %{level}, Score: %{score}, Playtime: %{playtime} (%{playtime_in_hours})' % {
