@@ -20,7 +20,12 @@ module Lerk
       @steam_web_api_key = steam_web_api_key
       @prefix            = prefix
 
-      @bot = Discordrb::Commands::CommandBot.new(token: @token, client_id: @client_id, prefix: @prefix)
+      @bot = Discordrb::Commands::CommandBot.new(
+        token:        @token,
+        client_id:    @client_id,
+        prefix:       @prefix,
+        help_command: :help,
+      )
 
       create_rate_limiters
       bind_commands
@@ -36,7 +41,13 @@ module Lerk
 
     private
     def bind_commands
-      @bot.command [:hive2, :hive] do |event, steam_id|
+      @bot.command(
+        [:hive2, :hive],
+        description: 'Query Hive 2 player data',
+        usage: '!hive [Steam ID, Default: Discord user]',
+        min_args: 0,
+        max_args: 1,
+      ) do |event, steam_id|
         # Per-user rate limit
          if @rate_limiter.rate_limited?(:hive2_user_api_calls, event.author)
            puts "Hit rate limit for #{ event.author.username }, throttling..."
