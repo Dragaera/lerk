@@ -100,7 +100,8 @@ EOF
         return "Could not retrieve data for ID #{ steam_id } (Account: #{ account_id })."
       end
 
-      'Skill: %{skill}, Level: %{level}, Score: %{score}, Playtime: %{playtime} (%{playtime_in_hours})' % {
+      '%{alias} - Skill: %{skill}, Level: %{level}, Score: %{score}, Playtime: %{playtime} (%{playtime_in_hours})' % {
+        alias:             data.alias,
         skill:             self.class.number_with_separator(data.skill),
         level:             data.level,
         score:             self.class.number_with_separator(data.score),
