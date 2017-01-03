@@ -3,9 +3,13 @@
 require 'discordrb'
 require 'steam_id'
 require 'hive_stalker'
+require 'silverball'
 
 module Lerk
   class Lerk
+    extend Silverball::DateTime
+    extend Silverball::Numbers
+
     SECONDS_PER_MINUTE = 60
     SECONDS_PER_HOUR = SECONDS_PER_MINUTE * 60
     SECONDS_PER_DAY = SECONDS_PER_HOUR * 24
@@ -91,13 +95,13 @@ EOF
         return "Could not retrieve your data."
       end
 
-      sprintf(
-        'Skill: %s, Level: %s, Score: %s, Playtime: %s',
-        data.skill,
-        data.level,
-        data.score,
-        pp_timespan(data.time_total)
-      )
+      'Skill: %{skill}, Level: %{level}, Score: %{score}, Playtime: %{playtime} (%{playtime_in_hours})' % {
+        skill:             self.class.number_with_separator(data.skill),
+        level:             data.level,
+        score:             self.class.number_with_separator(data.score),
+        playtime:          self.class.timespan_in_words(data.time_total),
+        playtime_in_hours: self.class.timespan_in_words(data.time_total, unit: :hours, round: 1),
+      }
     end
 
     def resolve_account_id(s)
@@ -117,37 +121,6 @@ EOF
         puts "Error: Could not retrieve data for account #{ account_id }: #{ e.message }"
         nil
       end
-    end
-
-    def pp_timespan(seconds)
-      if seconds >= SECONDS_PER_DAY
-        days = seconds / SECONDS_PER_DAY
-        seconds -= days * SECONDS_PER_DAY
-      else
-        days = 0
-      end
-
-      if seconds >= SECONDS_PER_HOUR
-        hours = seconds / SECONDS_PER_HOUR
-        seconds -= hours * SECONDS_PER_HOUR
-      else
-        hours = 0
-      end
-
-      if seconds >= SECONDS_PER_MINUTE
-        minutes = seconds / SECONDS_PER_MINUTE
-        seconds -= minutes * SECONDS_PER_MINUTE
-      else
-        minutes = 0
-      end
-
-      out = []
-      out << "#{ days }d" if days > 0
-      out << "#{ hours }h" if hours > 0
-      out << "#{ minutes }m" if minutes > 0
-      out << "#{ seconds }s" if seconds > 0 || (seconds == 0 && minutes == 0 && hours == 0 && days == 0)
-
-      out.join(' ')
     end
   end
 end

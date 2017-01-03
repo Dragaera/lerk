@@ -39,6 +39,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    silverball (0.1.1)
     steam-condenser (1.3.11)
       multi_json (~> 1.6)
       multi_xml (~> 0.5)
@@ -63,6 +64,7 @@ PLATFORMS
 DEPENDENCIES
   discordrb (~> 3.1.0)
   hive-stalker (~> 0.1.0)
+  silverball (~> 0.1.0)
   steam-id2 (~> 0.1.0)
 
 BUNDLED WITH
