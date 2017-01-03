@@ -8,14 +8,7 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
-- Per-user and global rate limits.
-- `!hive` as alias to `!hive2`
-- Description of bot commands to help output.
-
 ### Changed
-
-- Improved formatting of Hive 2 player data.
-- `!hive` command defaults to Discord username if not specified otherwise.
 
 ### Fixed
 
@@ -24,6 +17,20 @@ glance - what to expact from upgrading to a new version.
 ### Deprecated
 
 ### Removed
+
+
+## [0.2.0] - 2017-01-03
+
+### Added
+
+- Per-user and global rate limits.
+- `!hive` as alias to `!hive2`
+- Description of bot commands to help output.
+
+### Changed
+
+- Improved formatting of Hive 2 player data.
+- `!hive` command defaults to Discord username if not specified otherwise.
 
 
 ## [0.1.0] - 2017-01-02
