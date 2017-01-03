@@ -12,6 +12,8 @@ glance - what to expact from upgrading to a new version.
 
 ### Changed
 
+- Improved formatting of Hive 2 player data.
+
 ### Fixed
 
 ### Security
