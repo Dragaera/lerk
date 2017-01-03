@@ -9,6 +9,7 @@ glance - what to expact from upgrading to a new version.
 ### Added
 
 - Per-user and global rate limits.
+- `!hive` as alias to `!hive2`
 
 ### Changed
 

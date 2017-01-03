@@ -36,8 +36,8 @@ module Lerk
 
     private
     def bind_commands
-      @bot.command :hive2 do |event, steam_id|
-        # Per-use rate limit
+      @bot.command [:hive2, :hive] do |event, steam_id|
+        # Per-user rate limit
          if @rate_limiter.rate_limited?(:hive2_user_api_calls, event.author)
            puts "Hit rate limit for #{ event.author.username }, throttling..."
            msg = <<EOF
