@@ -14,6 +14,7 @@ glance - what to expact from upgrading to a new version.
 ### Changed
 
 - Improved formatting of Hive 2 player data.
+- `!hive` command defaults to Discord username if not specified otherwise.
 
 ### Fixed
 

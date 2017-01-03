@@ -81,9 +81,7 @@ EOF
     end
 
     def cmd_hive2(event, steam_id)
-      if steam_id.nil?
-        return "Usage: #{ @prefix }hive2 <Steam ID>"
-      end
+      steam_id ||= event.author.username
 
       account_id = resolve_account_id(steam_id)
       if account_id.nil?
@@ -92,7 +90,7 @@ EOF
 
       data = get_player_data(account_id)
       if data.nil?
-        return "Could not retrieve your data."
+        return "Could not retrieve data for ID #{ steam_id } (Account: #{ account_id })."
       end
 
       'Skill: %{skill}, Level: %{level}, Score: %{score}, Playtime: %{playtime} (%{playtime_in_hours})' % {
