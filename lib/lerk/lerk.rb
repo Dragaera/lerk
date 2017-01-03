@@ -58,10 +58,6 @@ EOF
 
         cmd_hive2(event, steam_id)
       end
-
-      @bot.command :hi do |event|
-        event.author.pm 'Hai'
-      end
     end
 
     def create_rate_limiters
