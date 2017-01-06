@@ -14,6 +14,9 @@ glance - what to expact from upgrading to a new version.
 
 ### Fixed
 
+- Updates Silvverball to 0.1.3, fixing fraction of seconds showing up in
+  hours-only playtime.
+
 ### Security
 
 ### Deprecated
