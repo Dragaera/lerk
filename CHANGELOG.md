@@ -8,20 +8,27 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
-- User alias to `!hive` output.
-
 ### Changed
 
 ### Fixed
-
-- Updates Silvverball to 0.1.3, fixing fraction of seconds showing up in
-  hours-only playtime.
 
 ### Security
 
 ### Deprecated
 
 ### Removed
+
+
+## [0.2.1] - 2016-01-06
+
+### Added
+
+- User alias to `!hive` output.
+
+### Fixed
+
+- Updates Silvverball to 0.1.3, fixing fraction of seconds showing up in
+  hours-only playtime.
 
 
 ## [0.2.0] - 2017-01-03
