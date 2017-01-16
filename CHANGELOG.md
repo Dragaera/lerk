@@ -19,6 +19,13 @@ glance - what to expact from upgrading to a new version.
 ### Removed
 
 
+## [0.4.1] - 2017-01-16
+
+### Fixed
+
+- Fixes `!excuse` command.
+
+
 ## [0.4.0] - 2017-01-16
 
 ### Added
