@@ -79,6 +79,27 @@ EOF
       ) do  |event|
         "Version: #{ ::Lerk::VERSION }\nChangelog: https://bitbucket.org/Lavode/lerk/src/master/CHANGELOG.md"
       end
+
+      @bot.command(
+        :excuse,
+        description: 'Generates a rock-solid excuse for anything',
+        usage: '!excuse <amount = 1>',
+        min_args: 0,
+        max_args: 1,
+      ) do |event, amount|
+        amount ||= 1
+        amount = amount.to_i
+
+        if amount < 1
+          "No excuse needed? I guess you're not working, then?"
+        elsif amount == 1
+          Excuse.excuse.first
+        elsif amount > Config::EXCUSE_MAXIMUM_AMOUNT
+          "You can't possibly need more than #{ Config::EXCUSE_MAXIMUM_AMOUNT } excuses!"
+        else
+          "Your excuses:\n#{ Excuse.excuse(amount).map { |ex| "- #{ ex }" }.join("\n") }"
+        end
+      end
     end
 
     def create_rate_limiters
