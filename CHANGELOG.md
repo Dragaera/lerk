@@ -9,6 +9,7 @@ glance - what to expact from upgrading to a new version.
 ### Added
 
 - `!version` command.
+- Link to SteamID.io if provided Steam ID could not be resolved.
 
 ### Changed
 
