@@ -8,8 +8,6 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
-- `!excuse` command. Picks a random BOFH-style excuse.
-
 ### Changed
 
 ### Fixed
@@ -19,6 +17,13 @@ glance - what to expact from upgrading to a new version.
 ### Deprecated
 
 ### Removed
+
+
+## [0.4.0] - 2017-01-16
+
+### Added
+
+- `!excuse` command. Picks a random BOFH-style excuse.
 
 
 ## [0.3.0] - 2017-01-16
