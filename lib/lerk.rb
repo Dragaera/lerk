@@ -2,3 +2,4 @@
 
 require 'lerk/lerk'
 require 'lerk/config'
+require 'lerk/version'

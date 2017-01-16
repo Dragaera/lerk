@@ -69,6 +69,16 @@ EOF
 
         cmd_hive2(event, steam_id)
       end
+
+      @bot.command(
+        :version,
+        description: 'Shows bot version',
+        usage: '!version',
+        min_args: 0,
+        max_args: 0,
+      ) do  |event|
+        "Version: #{ ::Lerk::VERSION }\nChangelog: https://bitbucket.org/Lavode/lerk/src/master/CHANGELOG.md"
+      end
     end
 
     def create_rate_limiters

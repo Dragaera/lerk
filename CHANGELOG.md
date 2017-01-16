@@ -8,6 +8,8 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
+- `!version` command.
+
 ### Changed
 
 - Updates dependencies to fix handling of account IDs starting with 765.
