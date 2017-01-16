@@ -14,5 +14,9 @@ module Lerk
     # Defaults to 1/s
     HIVE2_USER_RATE_LIMIT     = ENV.fetch('HIVE2_USER_RATE_LIMIT', 1).to_i
     HIVE2_USER_RATE_TIME_SPAN = ENV.fetch('HIVE2_USER_RATE_TIME_SPAN', 1).to_i
+
+    # Defaults to 1/5 min
+    HIVE2_HELP_MESSAGE_RATE_LIMIT     = ENV.fetch('HIVE2_HELP_MESSAGE_RATE_LIMIT', 1).to_i
+    HIVE2_HELP_MESSAGE_RATE_TIME_SPAN = ENV.fetch('HIVE2_HELP_MESSAGE_RATE_TIME_SPAN', 300).to_i
   end
 end

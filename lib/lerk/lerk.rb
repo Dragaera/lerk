@@ -95,6 +95,12 @@ EOF
         limit:     Config::HIVE2_USER_RATE_LIMIT,
         time_span: Config::HIVE2_USER_RATE_TIME_SPAN
       )
+
+      @rate_limiter.bucket(
+        :hive2_help_message,
+        limit:     Config::HIVE2_HELP_MESSAGE_RATE_LIMIT,
+        time_span: Config::HIVE2_HELP_MESSAGE_RATE_TIME_SPAN
+      )
     end
 
     def cmd_hive2(event, steam_id)
@@ -102,7 +108,11 @@ EOF
 
       account_id = resolve_account_id(steam_id)
       if account_id.nil?
-        return "Could not convert #{ steam_id } to account ID, please try another."
+        msg = "Could not convert #{ steam_id } to account ID, please try another."
+        unless @rate_limiter.rate_limited?(:hive2_help_message, event.author)
+          msg << "\n\nIf you do not know your Steam ID, you can use a tool like https://steamid.io to find it."
+        end
+        return msg
       end
 
       data = get_player_data(account_id)
