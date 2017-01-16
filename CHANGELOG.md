@@ -8,12 +8,7 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
-- `!version` command.
-- Link to SteamID.io if provided Steam ID could not be resolved.
-
 ### Changed
-
-- Updates dependencies to fix handling of account IDs starting with 765.
 
 ### Fixed
 
@@ -24,7 +19,19 @@ glance - what to expact from upgrading to a new version.
 ### Removed
 
 
-## [0.2.1] - 2016-01-06
+## [0.3.0] - 2017-01-16
+
+### Added
+
+- `!version` command.
+- Link to SteamID.io if provided Steam ID could not be resolved.
+
+### Changed
+
+- Updates dependencies to fix handling of account IDs starting with 765.
+
+
+## [0.2.1] - 2017-01-06
 
 ### Added
 
