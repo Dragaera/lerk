@@ -130,15 +130,15 @@ EOF
       account_id = resolve_account_id(steam_id)
       if account_id.nil?
         msg = "Could not convert #{ steam_id } to account ID, please try another."
-        unless @rate_limiter.rate_limited?(:hive2_help_message, event.author)
-          msg << "\n\nIf you do not know your Steam ID, you can use a tool like https://steamid.io to find it."
-        end
+        msg << steamid_help_message(event)
         return msg
       end
 
       data = get_player_data(account_id)
       if data.nil?
-        return "Could not retrieve data for ID #{ steam_id } (Account: #{ account_id })."
+        msg = "Could not retrieve data for ID #{ steam_id } (Account: #{ account_id })."
+        msg << steamid_help_message(event)
+        return msg
       end
 
       '%{alias} - Skill: %{skill}, Level: %{level}, Score: %{score}, Playtime: %{playtime} (%{playtime_in_hours})' % {
@@ -167,6 +167,14 @@ EOF
       rescue HiveStalker::APIError => e
         puts "Error: Could not retrieve data for account #{ account_id }: #{ e.message }"
         nil
+      end
+    end
+
+    def steamid_help_message(event)
+      if @rate_limiter.rate_limited?(:hive2_help_message, event.author)
+        ''
+      else
+        "\n\nIf you do not know your Steam ID, you can use a tool like https://steamid.io to find it."
       end
     end
   end
