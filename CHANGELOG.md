@@ -8,9 +8,6 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
-- Return SteamID help message if resolving of Steam ID was successful, but API
-  returned no data, hinting at incorrect supplied ID.
-
 ### Changed
 
 ### Fixed
@@ -20,6 +17,14 @@ glance - what to expact from upgrading to a new version.
 ### Deprecated
 
 ### Removed
+
+
+## [0.5.0] - 2017-01-29
+
+### Added
+
+- Return SteamID help message if resolving of Steam ID was successful, but API
+  returned no data, hinting at incorrect supplied ID.
 
 
 ## [0.4.1] - 2017-01-16
