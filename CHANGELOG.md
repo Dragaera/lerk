@@ -10,9 +10,6 @@ glance - what to expact from upgrading to a new version.
 
 ### Changed
 
-- Update to Ruby 2.4.0.
-- Update dependencies.
-
 ### Fixed
 
 ### Security
@@ -20,6 +17,14 @@ glance - what to expact from upgrading to a new version.
 ### Deprecated
 
 ### Removed
+
+
+## [0.6.0] - 2017-03-07
+
+### Changed
+
+- Update to Ruby 2.4.0.
+- Update dependencies.
 
 
 ## [0.5.0] - 2017-01-29
