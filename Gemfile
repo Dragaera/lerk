@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Discord API binding
-gem 'discordrb', '~> 3.1.0'
+gem 'discordrb', '~> 3.2.0'
 
 # Resolving Steam IDs
 gem 'steam-id2', '~> 0.2.0'
