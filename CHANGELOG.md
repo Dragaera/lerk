@@ -11,6 +11,7 @@ glance - what to expact from upgrading to a new version.
 ### Changed
 
 - Update to Ruby 2.4.0.
+- Update dependencies.
 
 ### Fixed
 

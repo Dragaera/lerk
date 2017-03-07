@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'discordrb', '~> 3.1.0'
 
 # Resolving Steam IDs
-gem 'steam-id2', '~> 0.1.0'
+gem 'steam-id2', '~> 0.2.0'
 
 # Hive 2 API binding
 gem 'hive-stalker', '~> 0.1.0'
