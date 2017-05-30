@@ -1,4 +1,4 @@
-FROM ruby:2.4.0
+FROM ruby:2.4.1
 
 MAINTAINER Michael Senn <michael@morrolan.ch>
 
