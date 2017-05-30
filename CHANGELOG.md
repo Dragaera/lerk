@@ -10,6 +10,9 @@ glance - what to expact from upgrading to a new version.
 
 ### Changed
 
+- Update to Ruby 2.4.1.
+- Update dependencies.
+
 ### Fixed
 
 ### Security
