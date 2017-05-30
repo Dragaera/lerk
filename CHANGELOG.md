@@ -21,8 +21,6 @@ glance - what to expact from upgrading to a new version.
 
 ## [0.7.0] - 2017-05-30
 
-### Added
-
 ### Changed
 
 - Update to Ruby 2.4.1.
