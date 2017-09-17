@@ -12,13 +12,18 @@ glance - what to expact from upgrading to a new version.
 
 ### Fixed
 
-- Flush STDOUT after logging, to facilitate reliable logging in containers.
-
 ### Security
 
 ### Deprecated
 
 ### Removed
+
+
+## [0.8.1] - 2017-09-17
+
+### Fixed
+
+- Flush STDOUT after logging, to facilitate reliable logging in containers.
 
 
 ## [0.8.0] - 2017-09-17
