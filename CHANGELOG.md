@@ -8,11 +8,7 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
-- Add basic logging of command usage.
-
 ### Changed
-
-- Update ruby and dependencies.
 
 ### Fixed
 
@@ -21,6 +17,17 @@ glance - what to expact from upgrading to a new version.
 ### Deprecated
 
 ### Removed
+
+
+## [0.8.0] - 2017-09-17
+
+### Added
+
+- Add basic logging of command usage.
+
+### Changed
+
+- Update ruby and dependencies.
 
 
 ## [0.7.0] - 2017-05-30
