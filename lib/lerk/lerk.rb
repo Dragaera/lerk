@@ -77,6 +77,7 @@ EOF
         min_args: 0,
         max_args: 0,
       ) do  |event|
+        log_command_usage(event, 'Version')
         "Version: #{ ::Lerk::VERSION }\nChangelog: https://bitbucket.org/Lavode/lerk/src/master/CHANGELOG.md"
       end
 
@@ -89,6 +90,8 @@ EOF
       ) do |event, amount|
         amount ||= 1
         amount = amount.to_i
+
+        log_command_usage(event, "Excuse: Amount = #{ amount }")
 
         if amount < 1
           "No excuse needed? I guess you're not working, then?"
@@ -126,6 +129,7 @@ EOF
 
     def cmd_hive2(event, steam_id)
       steam_id ||= event.author.username
+      log_command_usage(event, "Hive query: Identifier = #{ steam_id }")
 
       account_id = resolve_account_id(steam_id)
       if account_id.nil?
@@ -176,6 +180,17 @@ EOF
       else
         "\n\nIf you do not know your Steam ID, you can use a tool like https://steamid.io to find it."
       end
+    end
+
+    def log_command_usage(event, msg)
+      issuer = event.author.username
+      source = if event.channel.pm?
+                  '(Direct message)'
+                else
+                  "#{ event.server.name }/#{ event.channel.name }"
+                end
+
+      puts "[#{ issuer } @ #{ source }]: #{ msg }"
     end
   end
 end
