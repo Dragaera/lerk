@@ -8,6 +8,8 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
+- Add basic logging of command usage.
+
 ### Changed
 
 ### Fixed
