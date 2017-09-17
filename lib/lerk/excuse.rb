@@ -470,7 +470,43 @@ module Lerk
       "Your machine had the fuses in backwards.",
     ]
 
-    def self.excuse(amount = 1)
+    def self.register(bot)
+      @bot = bot
+
+      bind_commands
+    end
+
+    private
+    def self.bind_commands
+      @bot.command(
+        :excuse,
+        description: 'Generates a rock-solid excuse for anything',
+        usage: '!excuse <amount = 1>',
+        min_args: 0,
+        max_args: 1,
+      ) do |event, amount|
+        command_excuse(event, amount)
+      end
+    end
+
+    def self.command_excuse(event, amount)
+      amount ||= 1
+      amount = amount.to_i
+
+      @logger.command(event, 'excuse', { amount: amount })
+
+      if amount < 1
+        "No excuse needed? Congratulations!"
+      elsif amount == 1
+        get_excuses(amount: 1).first
+      elsif amount > Config::Excuse::MAXIMUM_AMOUNT
+        "You can't possibly need more than #{ Config::Excuse::MAXIMUM_AMOUNT } excuses!"
+      else
+        "Your excuses:\n#{ get_excuses(amount: amount).map { |ex| "- #{ ex }" }.join("\n") }"
+      end
+    end
+
+    def self.get_excuses(amount: 1)
       EXCUSES.sample(amount)
     end
   end
