@@ -190,7 +190,8 @@ EOF
                   "#{ event.server.name }/#{ event.channel.name }"
                 end
 
-      puts "[#{ issuer } @ #{ source }]: #{ msg }"
+      puts "[Command] (#{ issuer } @ #{ source }): #{ msg }"
+      STDOUT.flush
     end
   end
 end
