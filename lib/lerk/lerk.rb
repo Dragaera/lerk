@@ -5,15 +5,14 @@ require 'steam_id'
 require 'hive_stalker'
 require 'silverball'
 
+require_relative 'logger'
+
 require_relative 'internal'
 require_relative 'hive_interface'
 require_relative 'excuse'
 
 module Lerk
   class Lerk
-    extend Silverball::DateTime
-    extend Silverball::Numbers
-
     def initialize(client_id:, token:, prefix: '!')
       @client_id         = client_id
       @token             = token

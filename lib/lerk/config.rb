@@ -30,7 +30,7 @@ EOF
     end
 
     module Excuse
-      EXCUSE_MAXIMUM_AMOUNT = ENV.fetch('EXCUSE_MAXIMUM_AMOUNT', 10).to_i
+      MAXIMUM_AMOUNT = ENV.fetch('EXCUSE_MAXIMUM_AMOUNT', 10).to_i
     end
   end
 end

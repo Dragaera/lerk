@@ -17,12 +17,12 @@ module Lerk
         min_args: 0,
         max_args: 0,
       ) do  |event|
-        command_version
+        command_version(event)
       end
     end
 
-    def self.command_version
-      @logger.command(event, 'version')
+    def self.command_version(event)
+      Logger.command(event, 'version')
       "Version: #{ ::Lerk::VERSION }\nChangelog: https://bitbucket.org/Lavode/lerk/src/master/CHANGELOG.md"
     end
   end

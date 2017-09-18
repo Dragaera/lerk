@@ -1,7 +1,11 @@
 # coding: utf-8
+require 'silverball'
 
 module Lerk
   module HiveInterface
+    extend Silverball::DateTime
+    extend Silverball::Numbers
+
     def self.register(bot)
       @bot = bot
 
@@ -45,10 +49,10 @@ module Lerk
     end
 
     def self.command_hive(event, steam_id)
-      return if rate_limited?
+      return if rate_limited?(event)
 
       steam_id ||= event.author.username
-      @logger.command(event, 'hive_query', { identifier: steam_id })
+      Logger.command(event, 'hive_query', { identifier: steam_id })
 
       account_id = resolve_account_id(steam_id)
       if account_id.nil?
@@ -66,11 +70,11 @@ module Lerk
 
       '%{alias} - Skill: %{skill}, Level: %{level}, Score: %{score}, Playtime: %{playtime} (%{playtime_in_hours})' % {
         alias:             data.alias,
-        skill:             self.class.number_with_separator(data.skill),
+        skill:             self.number_with_separator(data.skill),
         level:             data.level,
-        score:             self.class.number_with_separator(data.score),
-        playtime:          self.class.timespan_in_words(data.time_total),
-        playtime_in_hours: self.class.timespan_in_words(data.time_total, unit: :hours, round: 1),
+        score:             self.number_with_separator(data.score),
+        playtime:          self.timespan_in_words(data.time_total),
+        playtime_in_hours: self.timespan_in_words(data.time_total, unit: :hours, round: 1),
       }
     end
 
@@ -106,7 +110,7 @@ module Lerk
       if global_rate_limited?
         puts 'Hit global rate limit, throttling...'
         true
-      elsif per_user_rate_limited?
+      elsif per_user_rate_limited?(event.author)
         puts "Hit rate limit for #{ event.author.username }, throttling..."
         event.author.pm Config::HiveInterface::PER_USER_RATE_LIMIT_MESSAGE
         true
@@ -116,13 +120,13 @@ module Lerk
     end
 
     def self.global_rate_limited?
-      @rate_limiter.rate_limiited?(
+      @rate_limiter.rate_limited?(
         :hive_global_api_calls,
         :get_player_data
       )
     end
 
-    def self.nper_user_rate_limited?(user)
+    def self.per_user_rate_limited?(user)
       @rate_limiter.rate_limited?(
         :hive_per_user_api_calls,
         user

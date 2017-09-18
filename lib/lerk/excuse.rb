@@ -493,7 +493,7 @@ module Lerk
       amount ||= 1
       amount = amount.to_i
 
-      @logger.command(event, 'excuse', { amount: amount })
+      Logger.command(event, 'excuse', { amount: amount })
 
       if amount < 1
         "No excuse needed? Congratulations!"
