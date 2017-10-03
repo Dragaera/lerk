@@ -23,6 +23,7 @@ module Lerk
         client_id:    @client_id,
         prefix:       @prefix,
         help_command: :help,
+        log_mode:     Config::LOG_LEVEL,
       )
 
       Internal.register(@bot)

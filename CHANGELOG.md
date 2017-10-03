@@ -8,6 +8,8 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
+- Allow configuring log level.
+
 ### Changed
 
 - Extract various commands into thematically distinct modules.
