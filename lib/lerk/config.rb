@@ -2,9 +2,16 @@
 
 module Lerk
   module Config
+    VALID_LOG_LEVELS = [:debug, :verbose, :normal, :quiet, :silent]
+
     DISCORD_CLIENT_ID   = ENV.fetch('DISCORD_CLIENT_ID')
     DISCORD_TOKEN       = ENV.fetch('DISCORD_TOKEN')
     LERK_COMMAND_PREFIX = ENV.fetch('LERK_COMMAND_PREFIX', '!')
+
+    LOG_LEVEL           = ENV.fetch('LOG_LEVEL', 'normal').to_sym
+    unless VALID_LOG_LEVELS.include? LOG_LEVEL
+      raise ArgumentError, "LOG_LEVEL '#{ LOG_LEVEL }' invalid. Valid values are: #{ VALID_LOG_LEVELS.join(', ') }"
+    end
 
     module HiveInterface
       STEAM_WEB_API_KEY   = ENV.fetch('STEAM_WEB_API_KEY', '')
