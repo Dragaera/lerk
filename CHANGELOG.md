@@ -8,11 +8,7 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
-- Allow configuring log level.
-
 ### Changed
-
-- Extract various commands into thematically distinct modules.
 
 ### Fixed
 
@@ -21,6 +17,17 @@ glance - what to expact from upgrading to a new version.
 ### Deprecated
 
 ### Removed
+
+
+## [0.9.0] - 2017-10-03
+
+### Added
+
+- Allow configuring log level.
+
+### Changed
+
+- Extract various commands into thematically distinct modules.
 
 
 ## [0.8.1] - 2017-09-17
