@@ -8,6 +8,9 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
+- Rate-limiting for `!excuse` command. Limits the number of excuses per time
+  interval a user may request.
+
 ### Changed
 
 ### Fixed
@@ -17,6 +20,9 @@ glance - what to expact from upgrading to a new version.
 ### Deprecated
 
 ### Removed
+
+- Configuration setting to limit maximum number of excuses per message in
+  favour of proper rate limiting.
 
 
 ## [0.9.0] - 2017-10-03
