@@ -8,18 +8,27 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
-- Rate-limiting for `!excuse` command. Limits the number of excuses per time
-  interval a user may request.
-
 ### Changed
-
-- Change changelog link to Github.
 
 ### Fixed
 
 ### Security
 
 ### Deprecated
+
+### Removed
+
+
+## [0.10.0] - 2017-11-01
+
+### Added
+
+- Rate-limiting for `!excuse` command. Limits the number of excuses per time
+  interval a user may request.
+
+### Changed
+
+- Change changelog link to Github.
 
 ### Removed
 
