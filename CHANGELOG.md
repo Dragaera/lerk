@@ -13,6 +13,8 @@ glance - what to expact from upgrading to a new version.
 
 ### Changed
 
+- Change changelog link to Github.
+
 ### Fixed
 
 ### Security
