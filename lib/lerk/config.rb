@@ -37,6 +37,7 @@ EOF
     end
 
     module Excuse
+      MAXIMUM_AMOUNT = ENV.fetch('EXCUSE_MAXIMUM_AMOUNT', 10).to_i
       PER_USER_RATE_LIMIT     = ENV.fetch('EXCUSE_PER_USER_RATE_LIMIT', 20).to_i
       PER_USER_RATE_TIME_SPAN = ENV.fetch('EXCUSE_PER_USER_RATE_TIME_SPAN', 60).to_i
     end

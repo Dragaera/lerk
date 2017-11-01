@@ -512,6 +512,8 @@ module Lerk
 
       if amount < 1
         "No excuse needed? Congratulations!"
+      elsif amount > Config::Excuse::MAXIMUM_AMOUNT
+        "You can't possibly need more than #{ Config::Excuse::MAXIMUM_AMOUNT } excuses!"
       elsif amount == 1
         get_excuses(amount: 1).first
       else
