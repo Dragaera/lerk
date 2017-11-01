@@ -504,17 +504,19 @@ module Lerk
       amount ||= 1
       amount = amount.to_i
 
+      Logger.command(event, 'excuse', { amount: amount })
+
+      if amount < 1
+        return "No excuse needed? Congratulations!"
+      elsif amount > Config::Excuse::MAXIMUM_AMOUNT
+        return "You can't possibly need more than #{ Config::Excuse::MAXIMUM_AMOUNT } excuses!"
+      end
+
       if rate_limited?(event, amount)
         return "That's too many excuses!"
       end
 
-      Logger.command(event, 'excuse', { amount: amount })
-
-      if amount < 1
-        "No excuse needed? Congratulations!"
-      elsif amount > Config::Excuse::MAXIMUM_AMOUNT
-        "You can't possibly need more than #{ Config::Excuse::MAXIMUM_AMOUNT } excuses!"
-      elsif amount == 1
+      if amount == 1
         get_excuses(amount: 1).first
       else
         "Your excuses:\n#{ get_excuses(amount: amount).map { |ex| "- #{ ex }" }.join("\n") }"

@@ -12,6 +12,9 @@ glance - what to expact from upgrading to a new version.
 
 ### Fixed
 
+- Prevent `!excuse` calls which exceeded the per-message limit from using up
+  the rate limit.
+
 ### Security
 
 ### Deprecated
