@@ -8,6 +8,10 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
+- Re-added per-message limit for `!excuse` command.
+  Allows keeping message size in check, as well as prevent circumventing the
+  rate limit upon the user first issuing the command.
+
 ### Changed
 
 ### Fixed
