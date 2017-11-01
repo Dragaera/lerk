@@ -18,7 +18,7 @@ WORKDIR /usr/src/app
 RUN bundle config --global frozen 1
 # Installing gems before copying source allows caching of gem installation.
 COPY Gemfile Gemfile.lock /usr/src/app/
-RUN bundle install
+RUN bundle install --without development
 COPY . /usr/src/app
 
 RUN chmod +x "./docker-entrypoint.sh"

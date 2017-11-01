@@ -10,3 +10,7 @@ gem 'steam-id2', '~> 0.3.0'
 gem 'hive-stalker', '~> 0.1.0'
 # Formatting helper
 gem 'silverball', '~> 0.1.0'
+
+group :development do
+  gem 'dotenv'
+end

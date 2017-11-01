@@ -17,6 +17,7 @@ GEM
   specs:
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
+    dotenv (2.2.1)
     ethon (0.10.1)
       ffi (>= 1.3.0)
     event_emitter (0.2.6)
@@ -60,6 +61,7 @@ PLATFORMS
 
 DEPENDENCIES
   discordrb!
+  dotenv
   hive-stalker (~> 0.1.0)
   silverball (~> 0.1.0)
   steam-id2 (~> 0.3.0)
