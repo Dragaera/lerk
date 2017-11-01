@@ -1,5 +1,7 @@
-GEM
-  remote: https://rubygems.org/
+GIT
+  remote: https://github.com/meew0/discordrb.git
+  revision: 4a6a14929a9a904ac059bf8a0cd1e3a9b3ab686f
+  ref: 4a6a149
   specs:
     discordrb (3.2.1)
       discordrb-webhooks (~> 3.2.0.1)
@@ -9,6 +11,10 @@ GEM
       websocket-client-simple (>= 0.3.0)
     discordrb-webhooks (3.2.0.1)
       rest-client
+
+GEM
+  remote: https://rubygems.org/
+  specs:
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
     ethon (0.10.1)
@@ -53,7 +59,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  discordrb (~> 3.2.0)
+  discordrb!
   hive-stalker (~> 0.1.0)
   silverball (~> 0.1.0)
   steam-id2 (~> 0.3.0)

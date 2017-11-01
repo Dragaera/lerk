@@ -473,10 +473,21 @@ module Lerk
     def self.register(bot)
       @bot = bot
 
+      init_rate_limiter
       bind_commands
     end
 
     private
+    def self.init_rate_limiter
+      @rate_limiter = Discordrb::Commands::SimpleRateLimiter.new
+
+      @rate_limiter.bucket(
+        :excuse_per_user_calls,
+        limit:     Config::Excuse::PER_USER_RATE_LIMIT,
+        time_span: Config::Excuse::PER_USER_RATE_TIME_SPAN
+      )
+    end
+
     def self.bind_commands
       @bot.command(
         :excuse,
@@ -493,14 +504,16 @@ module Lerk
       amount ||= 1
       amount = amount.to_i
 
+      if rate_limited?(event, amount)
+        return "That's too many excuses!"
+      end
+
       Logger.command(event, 'excuse', { amount: amount })
 
       if amount < 1
         "No excuse needed? Congratulations!"
       elsif amount == 1
         get_excuses(amount: 1).first
-      elsif amount > Config::Excuse::MAXIMUM_AMOUNT
-        "You can't possibly need more than #{ Config::Excuse::MAXIMUM_AMOUNT } excuses!"
       else
         "Your excuses:\n#{ get_excuses(amount: amount).map { |ex| "- #{ ex }" }.join("\n") }"
       end
@@ -508,6 +521,14 @@ module Lerk
 
     def self.get_excuses(amount: 1)
       EXCUSES.sample(amount)
+    end
+
+    def self.rate_limited?(event, amount)
+      @rate_limiter.rate_limited?(
+        :excuse_per_user_calls,
+        event.author,
+        increment: amount
+      )
     end
   end
 end
