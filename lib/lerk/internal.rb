@@ -23,7 +23,7 @@ module Lerk
 
     def self.command_version(event)
       Logger.command(event, 'version')
-      "Version: #{ ::Lerk::VERSION }\nChangelog: https://bitbucket.org/Lavode/lerk/src/master/CHANGELOG.md"
+      "Version: #{ ::Lerk::VERSION }\nChangelog: https://github.com/Dragaera/lerk/blob/master/CHANGELOG.md"
     end
   end
 end
