@@ -1,4 +1,6 @@
 # coding: utf-8
+require 'benchmark'
+
 require 'silverball'
 
 module Lerk
@@ -6,10 +8,12 @@ module Lerk
     extend Silverball::DateTime
     extend Silverball::Numbers
 
-    def self.register(bot)
+    def self.register(bot, registry: registry)
       @bot = bot
+      @registry = registry
 
       init_rate_limiter
+      init_metrics
       bind_commands
     end
 
@@ -36,6 +40,18 @@ module Lerk
       )
     end
 
+    def self.init_metrics
+      @cmd_counter = @registry.counter(
+        :lerk_commands_hive_total,
+        'Number of issued `!hive` commands.'
+      )
+
+      @query_time = @registry.histogram(
+        :lerk_hive_query_duration_seconds,
+        'Duration of Hive API calls in seconds'
+      )
+    end
+
     def self.bind_commands
       @bot.command(
         [:hive],
@@ -49,7 +65,10 @@ module Lerk
     end
 
     def self.command_hive(event, steam_id)
-      return if rate_limited?(event)
+      if rate_limited?(event)
+        @cmd_counter.increment({ status: :rate_limited })
+        return
+      end
 
       steam_id ||= event.author.username
       Logger.command(event, 'hive_query', { identifier: steam_id })
@@ -58,6 +77,7 @@ module Lerk
       if account_id.nil?
         msg = "Could not convert #{ steam_id } to account ID, please try another."
         msg << steamid_help_message(event)
+        @cmd_counter.increment({ status: :identifier_invalid })
         return msg
       end
 
@@ -65,9 +85,11 @@ module Lerk
       if data.nil?
         msg = "Could not retrieve data for ID #{ steam_id } (Account: #{ account_id })."
         msg << steamid_help_message(event)
+        @cmd_counter.increment({ status: :no_data_retrieved })
         return msg
       end
 
+      @cmd_counter.increment({ status: :success })
       '%{alias} - Skill: %{skill}, Level: %{level}, Score: %{score}, Playtime: %{playtime} (%{playtime_in_hours})' % {
         alias:             data.alias,
         skill:             self.number_with_separator(data.skill),
@@ -88,13 +110,24 @@ module Lerk
     end
 
     def self.get_player_data(account_id)
+      data = nil
       stalker = HiveStalker::Stalker.new
-      begin
-        stalker.get_player_data(account_id)
-      rescue HiveStalker::APIError => e
-        puts "Error: Could not retrieve data for account #{ account_id }: #{ e.message }"
-        nil
+
+      execution_time = Benchmark.realtime do
+        begin
+          data = stalker.get_player_data(account_id)
+        rescue HiveStalker::APIError => e
+          puts "Error: Could not retrieve data for account #{ account_id }: #{ e.message }"
+        end
       end
+
+      if data
+        @query_time.observe({ status: :success}, execution_time)
+      else
+        @query_time.observe({ status: :error}, execution_time)
+      end
+
+      data
     end
 
     def self.steamid_help_message(event)

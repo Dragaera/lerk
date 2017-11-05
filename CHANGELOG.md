@@ -8,6 +8,8 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
+- Metrics tracking executed commands, as well as Hive API call timings.
+
 ### Changed
 
 ### Fixed

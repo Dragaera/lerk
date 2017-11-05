@@ -34,6 +34,10 @@ GEM
     netrc (0.11.0)
     opus-ruby (1.0.1)
       ffi
+    prometheus-client (0.7.1)
+      quantile (~> 0.2.0)
+    quantile (0.2.0)
+    rack (2.0.3)
     rbnacl (3.4.0)
       ffi
     rest-client (2.0.2)
@@ -63,6 +67,8 @@ DEPENDENCIES
   discordrb!
   dotenv
   hive-stalker (~> 0.1.0)
+  prometheus-client (~> 0.7.1)
+  rack
   silverball (~> 0.1.0)
   steam-id2 (~> 0.3.0)
 
