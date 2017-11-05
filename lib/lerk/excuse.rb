@@ -470,10 +470,12 @@ module Lerk
       "Your machine had the fuses in backwards.",
     ]
 
-    def self.register(bot)
+    def self.register(bot, registry: registry)
       @bot = bot
+      @registry = registry
 
       init_rate_limiter
+      init_metrics
       bind_commands
     end
 
@@ -485,6 +487,17 @@ module Lerk
         :excuse_per_user_calls,
         limit:     Config::Excuse::PER_USER_RATE_LIMIT,
         time_span: Config::Excuse::PER_USER_RATE_TIME_SPAN
+      )
+    end
+
+    def self.init_metrics
+      @cmd_counter = @registry.counter(
+        :lerk_commands_excuse_total,
+        'Number of issued `!excuse` commands.'
+      )
+      @excuse_counter = @registry.counter(
+        :lerk_excuses_total,
+        'Number of generated excuses.'
       )
     end
 
@@ -507,15 +520,20 @@ module Lerk
       Logger.command(event, 'excuse', { amount: amount })
 
       if amount < 1
+        @cmd_counter.increment({ status: :less_than_one })
         return "No excuse needed? Congratulations!"
       elsif amount > Config::Excuse::MAXIMUM_AMOUNT
+        @cmd_counter.increment({ status: :exceeded_threshold })
         return "You can't possibly need more than #{ Config::Excuse::MAXIMUM_AMOUNT } excuses!"
       end
 
       if rate_limited?(event, amount)
+        @cmd_counter.increment({ status: :rate_limited })
         return "That's too many excuses!"
       end
 
+      @cmd_counter.increment({ status: :success })
+      @excuse_counter.increment({}, amount)
       if amount == 1
         get_excuses(amount: 1).first
       else
