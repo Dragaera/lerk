@@ -15,6 +15,7 @@ module Lerk
 
     module Prometheus
       PORT = ENV.fetch('PROMETHEUS_PORT', 5000).to_i
+      LISTEN_IP = ENV.fetch('PROMETHEUS_LISTEN_IP', '0.0.0.0')
       ENABLED = ENV.fetch('PROMETHEUS_ENABLED', 'true') == 'true'
     end
 

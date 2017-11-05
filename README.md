@@ -29,10 +29,11 @@ which have no default, but are required for operation.
 
 #### Prometheus
 
-| Setting             | Required | Default | Description                                                 |
-| ------------------- | -------- | ------- | ----------------------------------------------------------- |
-| PROMETHEUS_PORT     | n        | 5000    | Port which Prometheus exporter will bind to.                |
-| PROMETHEUS_ENABLED  | n        | true    | `true` to enable exporter, any other value else to disable. |
+| Setting              | Required | Default | Description                                                 |
+| -------------------- | -------- | ------- | ----------------------------------------------------------- |
+| PROMETHEUS_LISTEN_IP | n        | 0.0.0.0 | IP which Prometheus exporter will bind to. Might need changing if running outside a Docker container. |
+| PROMETHEUS_PORT      | n        | 5000    | Port which Prometheus exporter will bind to.                |
+| PROMETHEUS_ENABLED   | n        | true    | `true` to enable exporter, any other value else to disable. |
 
 #### Hive Interface
 

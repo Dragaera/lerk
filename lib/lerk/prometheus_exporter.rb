@@ -6,8 +6,8 @@ require 'prometheus/middleware/exporter'
 module Lerk
   module PrometheusExporter
     def self.run_exporter
-      # Mind the uppercase `:Port`
-      Rack::Handler::WEBrick.run(app, Port: Config::Prometheus::PORT)
+      # Mind the uppercase arguments 
+      Rack::Handler::WEBrick.run(app, Port: Config::Prometheus::PORT, Host: Config::Prometheus::LISTEN_IP)
     end
 
     private
