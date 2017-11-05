@@ -7,7 +7,7 @@ module Lerk
   module PrometheusExporter
     def self.run_exporter
       # Mind the uppercase `:Port`
-      Rack::Handler::WEBrick.run(app, Port: Config::PROMETHEUS_PORT)
+      Rack::Handler::WEBrick.run(app, Port: Config::Prometheus::PORT)
     end
 
     private

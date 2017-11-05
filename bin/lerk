@@ -10,11 +10,13 @@ end
 
 require 'lerk'
 
-puts 'Starting prometheus exporter'
-t = Thread.new do
-  Lerk::PrometheusExporter.run_exporter
+if Lerk::Config::Prometheus::ENABLED
+  puts 'Starting prometheus exporter'
+  t = Thread.new do
+    Lerk::PrometheusExporter.run_exporter
+  end
+  puts 'Running'
 end
-puts 'Running'
 
 lerk = Lerk::Lerk.new(
   client_id:         Lerk::Config::DISCORD_CLIENT_ID,

@@ -13,7 +13,10 @@ module Lerk
       raise ArgumentError, "LOG_LEVEL '#{ LOG_LEVEL }' invalid. Valid values are: #{ VALID_LOG_LEVELS.join(', ') }"
     end
 
-    PROMETHEUS_PORT = ENV.fetch('PROMETHEUS_PORT', 5000).to_i
+    module Prometheus
+      PORT = ENV.fetch('PROMETHEUS_PORT', 5000).to_i
+      ENABLED = ENV.fetch('PROMETHEUS_ENABLED', 'true') == 'true'
+    end
 
     module HiveInterface
       STEAM_WEB_API_KEY   = ENV.fetch('STEAM_WEB_API_KEY', '')
