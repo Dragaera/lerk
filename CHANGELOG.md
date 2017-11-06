@@ -12,6 +12,8 @@ glance - what to expact from upgrading to a new version.
 
 ### Changed
 
+- Move list of excuses to separate file.
+
 ### Fixed
 
 ### Security
