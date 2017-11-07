@@ -8,11 +8,7 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
-- Metrics tracking executed commands, as well as Hive API call timings.
-
 ### Changed
-
-- Move list of excuses to separate file.
 
 ### Fixed
 
@@ -21,6 +17,17 @@ glance - what to expact from upgrading to a new version.
 ### Deprecated
 
 ### Removed
+
+
+## [0.12.0] - 2017-11-07
+
+### Added
+
+- Metrics tracking executed commands, as well as Hive API call timings.
+
+### Changed
+
+- Move list of excuses to separate file.
 
 
 ## [0.11.1] - 2017-11-01
