@@ -13,7 +13,7 @@ require 'lerk'
 if Lerk::Config::Prometheus::ENABLED
   puts 'Starting prometheus exporter'
   t = Thread.new do
-    Lerk::PrometheusExporter.run_exporter
+    Lerk::Prometheus::Exporter.run_exporter
   end
   puts 'Running'
 end

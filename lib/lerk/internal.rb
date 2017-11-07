@@ -2,9 +2,8 @@
 
 module Lerk
   module Internal
-    def self.register(bot, registry: registry)
+    def self.register(bot)
       @bot = bot
-      @registry = registry
 
       init_metrics
       bind_commands
@@ -12,7 +11,7 @@ module Lerk
 
     private
     def self.init_metrics
-      @cmd_version_counter = @registry.counter(
+      @cmd_version_counter = Prometheus::Wrapper.default.counter(
         :lerk_commands_version_total,
         'Number of issued `!version` commands.'
       )
@@ -32,7 +31,8 @@ module Lerk
 
     def self.command_version(event)
       Logger.command(event, 'version')
-      @cmd_version_counter.increment({ status: :success })
+      p @cmd_version_counter
+      @cmd_version_counter.increment({ status: :success }, event: event)
       "Version: #{ ::Lerk::VERSION }\nChangelog: https://github.com/Dragaera/lerk/blob/master/CHANGELOG.md"
     end
   end
