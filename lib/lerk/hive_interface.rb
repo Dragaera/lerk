@@ -8,9 +8,8 @@ module Lerk
     extend Silverball::DateTime
     extend Silverball::Numbers
 
-    def self.register(bot, registry: registry)
+    def self.register(bot)
       @bot = bot
-      @registry = registry
 
       init_rate_limiter
       init_metrics
@@ -41,12 +40,12 @@ module Lerk
     end
 
     def self.init_metrics
-      @cmd_counter = @registry.counter(
+      @cmd_counter = Prometheus::Wrapper.default.counter(
         :lerk_commands_hive_total,
         'Number of issued `!hive` commands.'
       )
 
-      @query_time = @registry.histogram(
+      @query_time = Prometheus::Wrapper.default.histogram(
         :lerk_hive_query_duration_seconds,
         'Duration of Hive API calls in seconds'
       )
@@ -66,7 +65,7 @@ module Lerk
 
     def self.command_hive(event, steam_id)
       if rate_limited?(event)
-        @cmd_counter.increment({ status: :rate_limited })
+        @cmd_counter.increment({ status: :rate_limited }, event: event)
         return
       end
 
@@ -77,19 +76,19 @@ module Lerk
       if account_id.nil?
         msg = "Could not convert #{ steam_id } to account ID, please try another."
         msg << steamid_help_message(event)
-        @cmd_counter.increment({ status: :identifier_invalid })
+        @cmd_counter.increment({ status: :identifier_invalid }, event: event)
         return msg
       end
 
-      data = get_player_data(account_id)
+      data = get_player_data(account_id, event)
       if data.nil?
         msg = "Could not retrieve data for ID #{ steam_id } (Account: #{ account_id })."
         msg << steamid_help_message(event)
-        @cmd_counter.increment({ status: :no_data_retrieved })
+        @cmd_counter.increment({ status: :no_data_retrieved }, event: event)
         return msg
       end
 
-      @cmd_counter.increment({ status: :success })
+      @cmd_counter.increment({ status: :success }, event: event)
       '%{alias} - Skill: %{skill}, Level: %{level}, Score: %{score}, Playtime: %{playtime} (%{playtime_in_hours})' % {
         alias:             data.alias,
         skill:             self.number_with_separator(data.skill),
@@ -109,7 +108,7 @@ module Lerk
       end
     end
 
-    def self.get_player_data(account_id)
+    def self.get_player_data(account_id, event)
       data = nil
       stalker = HiveStalker::Stalker.new
 
@@ -122,9 +121,9 @@ module Lerk
       end
 
       if data
-        @query_time.observe({ status: :success}, execution_time)
+        @query_time.observe({ status: :success}, execution_time, event: event)
       else
-        @query_time.observe({ status: :error}, execution_time)
+        @query_time.observe({ status: :error}, execution_time, event: event)
       end
 
       data
