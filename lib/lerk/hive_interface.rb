@@ -89,14 +89,31 @@ module Lerk
       end
 
       @cmd_counter.increment({ status: :success }, event: event)
-      '%{alias} - Skill: %{skill}, Level: %{level}, Score: %{score}, Playtime: %{playtime} (%{playtime_in_hours})' % {
-        alias:             data.alias,
-        skill:             self.number_with_separator(data.skill),
-        level:             data.level,
-        score:             self.number_with_separator(data.score),
-        playtime:          self.timespan_in_words(data.time_total),
-        playtime_in_hours: self.timespan_in_words(data.time_total, unit: :hours, round: 1),
-      }
+
+      if Config::HiveInterface::ENABLE_EMBEDS
+        event.channel.send_embed do |embed|
+          embed.title = data.alias
+          embed.url   = observatory_url(account_id)
+
+          embed.add_field(name: 'Skill',        value: self.number_with_separator(data.skill))
+          embed.add_field(name: 'Level',        value: data.level)
+          embed.add_field(name: 'Score',        value: self.number_with_separator(data.score))
+          time_total  = self.timespan_in_words(data.time_total,  unit: :hours, round: 1)
+          time_alien  = self.timespan_in_words(data.time_alien,  unit: :hours, round: 1)
+          time_marine = self.timespan_in_words(data.time_marine, unit: :hours, round: 1)
+
+          embed.add_field(name: 'Time', value: "**Total**: #{ time_total }, **Alien**: #{ time_alien }, **Marine**: #{ time_marine }")
+        end
+      else
+        '%{alias} - Skill: %{skill}, Level: %{level}, Score: %{score}, Playtime: %{playtime} (%{playtime_in_hours})' % {
+          alias:             data.alias,
+          skill:             self.number_with_separator(data.skill),
+          level:             data.level,
+          score:             self.number_with_separator(data.score),
+          playtime:          self.timespan_in_words(data.time_total),
+          playtime_in_hours: self.timespan_in_words(data.time_total, unit: :hours, round: 1),
+        }
+      end
     end
 
     def self.resolve_account_id(s)
@@ -127,6 +144,12 @@ module Lerk
       end
 
       data
+    end
+
+    def self.observatory_url(steam_id)
+      # Theoretically we should URL-encode, but it's safe-ish since only values
+      # which are valid URL parameters will get this far.
+      "#{ Config::Observatory::BASE_URL }/player?steam_id=#{ steam_id }"
     end
 
     def self.steamid_help_message(event)
