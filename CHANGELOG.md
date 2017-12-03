@@ -8,8 +8,6 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
-- Optional support for Discord "embed" output in Hive module.
-
 ### Changed
 
 ### Fixed
@@ -19,6 +17,13 @@ glance - what to expact from upgrading to a new version.
 ### Deprecated
 
 ### Removed
+
+
+## [0.13.0] - 2017-12-03
+
+### Added
+
+- Optional support for Discord-style "embeds" in Hive module.
 
 
 ## [0.12.0] - 2017-11-07
