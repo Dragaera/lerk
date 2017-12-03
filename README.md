@@ -46,6 +46,13 @@ which have no default, but are required for operation.
 | `HIVE_PER_USER_RATE_LIMIT_TIME_SPAN` | n        | 1       | Per user rate limiting interval in seconds.      |
 | `HIVE_HELP_MESSAGE_RATE_LIMIT`       | n        | 1       | Per user number of help messages to send in interval. |
 | `HELP_MESSAGE_RATE_LIMIT_TIME_SPAN`  | n        | 300     | Per user rate limiting interval in seconds.      |
+| `HIVE_ENABLE_EMBEDS`                 | n        | true    | Set to `false` to use plain-text rather than embed-style output. |
+
+#### Observatory
+
+| Setting                | Required | Default                         | Description                       |
+| -----------------------| -------- | ------------------------------- | --------------------------------- |
+| `OBSERVATORY_BASE_URL` | n        | https://observatory.morrolan.ch | Base URL of observatory instance. |
 
 #### Excuse
 
