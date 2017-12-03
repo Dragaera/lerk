@@ -40,6 +40,12 @@ Hello there!
 You have reached the rate limit of Hive 2 queries.
 Please wait a few seconds before you issue another query. :)
 EOF
+
+      ENABLE_EMBEDS = ['true', 'yes', '1'].include?(ENV.fetch('HIVE_ENABLE_EMBEDS', 'true'))
+    end
+
+    module Observatory
+      BASE_URL = ENV.fetch('OBSERVATORY_BASE_URL', 'https://observatory.morrolan.ch')
     end
 
     module Excuse
