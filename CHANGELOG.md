@@ -10,11 +10,6 @@ glance - what to expact from upgrading to a new version.
 
 ### Changed
 
-- Improve plaintext and embed output formats of Hive queries.
-  - Use markdown to improve readability of plaintext format.
-  - Add Observatory link to plaintext format.
-  - Decrease size of embed format.
-
 ### Fixed
 
 ### Security
@@ -22,6 +17,16 @@ glance - what to expact from upgrading to a new version.
 ### Deprecated
 
 ### Removed
+
+
+## [0.14.0] - 2017-12-07
+
+### Changed
+
+- Improve plaintext and embed output formats of Hive queries.
+  - Use markdown to improve readability of plaintext format.
+  - Add Observatory link to plaintext format.
+  - Decrease size of embed format.
 
 
 ## [0.13.0] - 2017-12-03
