@@ -12,13 +12,18 @@ glance - what to expact from upgrading to a new version.
 
 ### Fixed
 
-- Adjust to breaking changes in `steam-id2` library.
-
 ### Security
 
 ### Deprecated
 
 ### Removed
+
+
+## [0.15.1] - 2017-12-20
+
+### Fixed
+
+- Adjust to breaking changes in `steam-id2` library.
 
 
 ## [0.15.0] - 2017-12-19
