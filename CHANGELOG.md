@@ -8,12 +8,7 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
-- Bot will respond with an excuse if an internal exception is encountered while
-  processing commands.
-
 ### Changed
-
-- Update dependencies and base image.
 
 ### Fixed
 
@@ -22,6 +17,18 @@ glance - what to expact from upgrading to a new version.
 ### Deprecated
 
 ### Removed
+
+
+## [0.15.0] - 2017-12-19
+
+### Added
+
+- Bot will respond with an excuse if an internal exception is encountered while
+  processing commands.
+
+### Changed
+
+- Update dependencies and base image.
 
 
 ## [0.14.0] - 2017-12-07
