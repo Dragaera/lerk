@@ -117,7 +117,7 @@ module Lerk
 
     def self.resolve_account_id(s)
       begin
-        SteamID::SteamID.from_string(s, steam_api_key: Config::HiveInterface::STEAM_WEB_API_KEY)
+        SteamID.from_string(s, api_key: Config::HiveInterface::STEAM_WEB_API_KEY).account_id
       rescue WebApiError, ArgumentError => e
         puts "Error: Could not convert #{ s } to account ID: #{ e.message }"
         nil
