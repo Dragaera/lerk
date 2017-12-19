@@ -13,6 +13,8 @@ glance - what to expact from upgrading to a new version.
 
 ### Changed
 
+- Update dependencies and base image.
+
 ### Fixed
 
 ### Security
