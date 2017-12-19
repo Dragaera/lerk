@@ -26,6 +26,7 @@ module Lerk
         prefix:       @prefix,
         help_command: :help,
         log_mode:     Config::LOG_LEVEL,
+        rescue: self.method(:handle_exception)
       )
 
       Internal.register(@bot)
@@ -39,6 +40,12 @@ module Lerk
 
     def run
       @bot.run
+    end
+
+    def handle_exception(event, exception)
+      excuse = Excuse.get_excuses.first
+      out = "Oops, omething went wrong:\n#{ excuse }"
+      event.respond(out)
     end
   end
 end

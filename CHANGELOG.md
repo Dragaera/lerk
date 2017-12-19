@@ -8,6 +8,9 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
+- Bot will respond with an excuse if an internal exception is encountered while
+  processing commands.
+
 ### Changed
 
 ### Fixed
