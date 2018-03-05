@@ -1,5 +1,7 @@
 # coding: utf-8
 
+$stdout.sync = true
+
 module Lerk
   module Config
     VALID_LOG_LEVELS = [:debug, :verbose, :normal, :quiet, :silent]
