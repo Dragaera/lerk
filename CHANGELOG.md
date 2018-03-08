@@ -10,8 +10,6 @@ glance - what to expact from upgrading to a new version.
 
 ### Changed
 
-- Disable buffering of stdout.
-
 ### Fixed
 
 ### Security
@@ -19,6 +17,13 @@ glance - what to expact from upgrading to a new version.
 ### Deprecated
 
 ### Removed
+
+
+## [0.15.2] - 2018-03-09
+
+### Changed
+
+- Disable buffering of stdout.
 
 
 ## [0.15.1] - 2017-12-20
