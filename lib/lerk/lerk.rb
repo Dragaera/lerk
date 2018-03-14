@@ -15,6 +15,8 @@ require_relative 'excuse'
 
 module Lerk
   class Lerk
+    PERMISSION_LEVEL_ADMIN = 10
+
     def initialize(client_id:, token:, prefix: '!')
       @client_id         = client_id
       @token             = token
@@ -28,6 +30,8 @@ module Lerk
         log_mode:     Config::LOG_LEVEL,
         rescue: self.method(:handle_exception)
       )
+
+      register_admin_users
 
       Internal.register(@bot)
       HiveInterface.register(@bot)
@@ -46,6 +50,14 @@ module Lerk
       excuse = Excuse.get_excuses.first
       out = "Oops, omething went wrong:\n#{ excuse }"
       event.respond(out)
+    end
+
+    private
+    def register_admin_users
+      Config::Lerk::ADMIN_USERS.each do |id|
+        Logger.log("Granting admin access to user #{ id }")
+        @bot.set_user_permission(id, Lerk::PERMISSION_LEVEL_ADMIN)
+      end
     end
   end
 end

@@ -41,7 +41,8 @@ module Lerk
         description: 'Shows servers the bot is in',
         usage: '!servers',
         min_args: 0,
-        max_args: 0
+        max_args: 0,
+        permission_level: Lerk::PERMISSION_LEVEL_ADMIN,
       ) do  |event|
         command_servers(event)
       end

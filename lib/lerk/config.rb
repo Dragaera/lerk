@@ -15,6 +15,13 @@ module Lerk
       raise ArgumentError, "LOG_LEVEL '#{ LOG_LEVEL }' invalid. Valid values are: #{ VALID_LOG_LEVELS.join(', ') }"
     end
 
+    module Lerk
+      ADMIN_USERS = ENV.fetch('LERK_ADMIN_USERS', '').split(',').map do |id|
+        raise ArgumentError, "ADMIN_USERS must contain numeric IDs only!" unless id.match(/^\d+$/)
+        id.to_i
+      end
+    end
+
     module Prometheus
       PORT = ENV.fetch('PROMETHEUS_PORT', 5000).to_i
       LISTEN_IP = ENV.fetch('PROMETHEUS_LISTEN_IP', '0.0.0.0')
