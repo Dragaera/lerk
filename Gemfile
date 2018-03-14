@@ -17,4 +17,5 @@ gem 'silverball', '~> 0.1.0'
 
 group :development do
   gem 'dotenv'
+  gem 'pry'
 end
