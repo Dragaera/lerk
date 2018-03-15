@@ -46,6 +46,14 @@ module Lerk
       @bot.run
     end
 
+    def servers
+      if @bot.connected?
+        @bot.servers
+      else
+        {}
+      end
+    end
+
     def handle_exception(event, exception)
       excuse = Excuse.get_excuses.first
       out = "Oops, omething went wrong:\n#{ excuse }"
