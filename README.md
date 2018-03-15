@@ -24,8 +24,14 @@ which have no default, but are required for operation.
 | --------------------- | -------- | ------- | ------------------------------------------ |
 | `DISCORD_CLIENT_ID`   | y        |         | OAuth Client ID.                           |
 | `DISCORD_TOKEN`       | y        |         | OAuth Token.                               |
-| `LERK_COMMAND_PREFIX` | n        | !       | Prefix which is used to identify commands. |
 | `LOG_LEVEL`           | n        | normal  | Logging verbosity. Valid values are 'debug', 'verbose', 'normal', 'quiet', 'silent' |
+
+#### Lerk
+
+| Setting               | Required | Default | Description                                |
+| --------------------- | -------- | ------- | ------------------------------------------ |
+| `LERK_COMMAND_PREFIX` | n        | !       | Prefix which is used to identify commands. |
+| `LERK_ADMIN_USERS`    | n        |         | Comma-separated list of Discord user IDs which to grant admin access to the bot to. |
 
 #### Prometheus
 

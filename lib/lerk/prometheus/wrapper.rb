@@ -18,6 +18,11 @@ module Lerk
         @registry.register(cnt)
       end
 
+      def gauge(*args)
+        gauge = ::Prometheus::Client::Gauge.new(*args)
+        @registry.register(gauge)
+      end
+
       def histogram(*args)
         hist = DiscordHistogram.new(*args)
         @registry.register(hist)

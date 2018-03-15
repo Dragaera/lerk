@@ -6,6 +6,8 @@ require 'lerk/lerk'
 require 'lerk/version'
 require 'lerk/excuse'
 
+require 'lerk/worker'
+
 require 'lerk/prometheus/util'
 require 'lerk/prometheus/exporter'
 require 'lerk/prometheus/wrapper'
