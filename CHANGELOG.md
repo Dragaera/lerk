@@ -8,9 +8,6 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
-- `!servers` command to list servers the bot is in, available to admin users.
-- Server count exposed as Prometheus metric.
-
 ### Changed
 
 ### Fixed
@@ -20,6 +17,14 @@ glance - what to expact from upgrading to a new version.
 ### Deprecated
 
 ### Removed
+
+
+## [0.16.0] - 2018-03-15
+
+### Added
+
+- `!servers` command to list servers the bot is in, available to admin users.
+- Server count exposed as Prometheus metric.
 
 
 ## [0.15.2] - 2018-03-09
