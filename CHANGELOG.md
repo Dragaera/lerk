@@ -8,19 +8,26 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
-- Allow creating invites for servers the bot is in.
-
 ### Changed
 
 ### Fixed
-
-- Prevent timeout when listing servers due to counting members in server.
 
 ### Security
 
 ### Deprecated
 
 ### Removed
+
+
+## [0.17.0] - 2018-03-20
+
+### Added
+
+- Allow creating invites for servers the bot is in.
+
+### Fixed
+
+- Prevent timeout when listing servers due to counting members in server.
 
 
 ## [0.16.0] - 2018-03-15
