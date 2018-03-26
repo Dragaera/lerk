@@ -8,9 +8,13 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
+- Allow creating invites for servers the bot is in.
+
 ### Changed
 
 ### Fixed
+
+- Prevent timeout when listing servers due to counting members in server.
 
 ### Security
 
