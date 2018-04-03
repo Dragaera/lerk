@@ -63,5 +63,13 @@ EOF
       PER_USER_RATE_LIMIT     = ENV.fetch('EXCUSE_PER_USER_RATE_LIMIT', 20).to_i
       PER_USER_RATE_TIME_SPAN = ENV.fetch('EXCUSE_PER_USER_RATE_TIME_SPAN', 60).to_i
     end
+
+    module Gorge
+      BASE_URL            = ENV['GORGE_BASE_URL']
+      HTTP_BASIC_USER     = ENV['GORGE_HTTP_BASIC_USER']
+      HTTP_BASIC_PASSWORD = ENV['GORGE_HTTP_BASIC_PASSWORD']
+      CONNECT_TIMEOUT     = ENV.fetch('GORGE_CONNECT_TIMEOUT', 1).to_i
+      TIMEOUT             = ENV.fetch('GORGE_TIMEOUT', 2).to_i
+    end
   end
 end

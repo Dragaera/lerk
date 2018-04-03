@@ -8,6 +8,9 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
+- Gorge integration, allowing to pull additional per-player statistics from
+  Gorge.
+
 ### Changed
 
 ### Fixed
