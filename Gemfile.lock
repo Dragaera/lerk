@@ -23,6 +23,8 @@ GEM
       ffi (>= 1.3.0)
     event_emitter (0.2.6)
     ffi (1.9.18)
+    gorgerb (0.1.0)
+      typhoeus (~> 1.3)
     hive-stalker (0.1.5)
       typhoeus
     http-cookie (1.0.3)
@@ -71,6 +73,7 @@ PLATFORMS
 DEPENDENCIES
   discordrb!
   dotenv
+  gorgerb (~> 0.1.0)
   hive-stalker (~> 0.1.0)
   prometheus-client (~> 0.7.1)
   pry
@@ -79,4 +82,4 @@ DEPENDENCIES
   steam-id2 (~> 0.4.0)
 
 BUNDLED WITH
-   1.14.5
+   1.16.1

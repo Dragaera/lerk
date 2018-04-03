@@ -2,14 +2,31 @@
 require 'benchmark'
 
 require 'silverball'
+require 'gorgerb'
 
 module Lerk
   module HiveInterface
     extend Silverball::DateTime
     extend Silverball::Numbers
 
-    PLAINTEXT_MESSAGE_TEMPLATE = "**%{alias}** (%{profile_url})\n**Skill**: %{skill}, **Level**: %{level}, **Score**: %{score}\n**Time**: **Total**: %{time_total}, **Alien**: %{time_alien}, **Marine**: %{time_marine}"
-    EMBED_MESSAGE_TEMPLATE = "**Skill**: %{skill}\n**Level**: %{level}\n**Score**: %{score}\n**Time**: **Total**: %{time_total}, **Alien**: %{time_alien}, **Marine**: %{time_marine}"
+    GORGE_MESSAGE_TEMPLATE = <<EOF
+**K/D**: **Alien**: %{kd_alien}, **Marine**: %{kd_marine}
+**Acc**: **Alien**: %{accuracy_alien}%%, **Marine**: %{accuracy_marine}%%
+EOF
+
+    PLAINTEXT_MESSAGE_TEMPLATE = <<EOF
+**%{alias}** (%{profile_url})
+**Skill**: %{skill}, **Level**: %{level}, **Score**: %{score}
+%{gorge_statistics}
+**Time**: **Total**: %{time_total}, **Alien**: %{time_alien}, **Marine**: %{time_marine}
+EOF
+    EMBED_MESSAGE_TEMPLATE = <<EOF
+**Skill**: %{skill}
+%{gorge_statistics}
+**Level**: %{level}
+**Score**: %{score}
+**Time**: **Total**: %{time_total}, **Alien**: %{time_alien}, **Marine**: %{time_marine}
+EOF
 
     def self.register(bot)
       @bot = bot
@@ -93,15 +110,29 @@ module Lerk
 
       @cmd_counter.increment({ status: :success }, event: event)
 
+      gorge_data = gorge_query(account_id)
+      gorge_statistics = if gorge_data
+                           args = {
+                             kd_alien:                gorge_data.kdr.alien.round(2),
+                             kd_marine:               gorge_data.kdr.marine.round(2),
+                             accuracy_alien:          (100 * gorge_data.accuracy.alien).round(1),
+                             accuracy_marine:         (100 * gorge_data.accuracy.marine.total).round(1),
+                           }
+                           GORGE_MESSAGE_TEMPLATE % args
+                         else
+                           '(No additional data available)'
+                         end
+
       args = {
-        alias:       data.alias,
-        profile_url: observatory_url(account_id),
-        skill:       self.number_with_separator(data.skill),
-        level:       data.level,
-        score:       self.number_with_separator(data.score),
-        time_total:  self.timespan_in_words(data.time_total,  unit: :hours, round: 1),
-        time_alien:  self.timespan_in_words(data.time_alien,  unit: :hours, round: 1),
-        time_marine: self.timespan_in_words(data.time_marine, unit: :hours, round: 1),
+        alias:            data.alias,
+        profile_url:      observatory_url(account_id),
+        skill:            self.number_with_separator(data.skill),
+        level:            data.level,
+        score:            self.number_with_separator(data.score),
+        time_total:       self.timespan_in_words(data.time_total,  unit: :hours, round: 1),
+        time_alien:       self.timespan_in_words(data.time_alien,  unit: :hours, round: 1),
+        time_marine:      self.timespan_in_words(data.time_marine, unit: :hours, round: 1),
+        gorge_statistics: gorge_statistics.chomp,
       }
 
       if Config::HiveInterface::ENABLE_EMBEDS
@@ -185,6 +216,29 @@ module Lerk
         :hive_per_user_api_calls,
         user
       )
+    end
+
+    def self.gorge_query(steam_id)
+      return nil unless Config::Gorge::BASE_URL
+
+      opts = {
+        connect_timeout: Config::Gorge::CONNECT_TIMEOUT,
+        timeout: Config::Gorge::TIMEOUT,
+      }
+
+      if Config::Gorge::HTTP_BASIC_USER && Config::Gorge::HTTP_BASIC_PASSWORD
+        opts[:user]     = Config::Gorge::HTTP_BASIC_USER
+        opts[:password] = Config::Gorge::HTTP_BASIC_PASSWORD
+      end
+
+      client = Gorgerb::Client.new(
+        Config::Gorge::BASE_URL,
+        opts
+      )
+
+      client.player_statistics(steam_id)
+    rescue Gorgerb::Error => e
+      nil
     end
   end
 end
