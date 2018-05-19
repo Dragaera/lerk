@@ -10,9 +10,6 @@ glance - what to expact from upgrading to a new version.
 
 ### Changed
 
-- Show no-onos marine accuracy.
-- Update to ruby 2.5.1, update dependencies, update Tini.
-
 ### Fixed
 
 ### Security
@@ -20,6 +17,14 @@ glance - what to expact from upgrading to a new version.
 ### Deprecated
 
 ### Removed
+
+
+## [0.19.0] - 2018-05-19
+
+### Changed
+
+- Show no-onos marine accuracy.
+- Update to ruby 2.5.1, update dependencies, update Tini.
 
 
 ## [0.18.0] - 2018-04-04
