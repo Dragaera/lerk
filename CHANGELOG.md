@@ -11,6 +11,7 @@ glance - what to expact from upgrading to a new version.
 ### Changed
 
 - Show no-onos marine accuracy.
+- Update to ruby 2.5.1, update dependencies, update Tini.
 
 ### Fixed
 
