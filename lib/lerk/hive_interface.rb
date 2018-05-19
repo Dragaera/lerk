@@ -11,7 +11,7 @@ module Lerk
 
     GORGE_MESSAGE_TEMPLATE = <<EOF
 **K/D**: **Alien**: %{kd_alien}, **Marine**: %{kd_marine}
-**Acc**: **Alien**: %{accuracy_alien}%%, **Marine**: %{accuracy_marine}%%
+**Acc**: **Alien**: %{accuracy_alien}%%, **Marine (no Onos)**: %{accuracy_marine}%%
 EOF
 
     PLAINTEXT_MESSAGE_TEMPLATE = <<EOF
@@ -116,7 +116,7 @@ EOF
                              kd_alien:                gorge_data.kdr.alien.round(2),
                              kd_marine:               gorge_data.kdr.marine.round(2),
                              accuracy_alien:          (100 * gorge_data.accuracy.alien).round(1),
-                             accuracy_marine:         (100 * gorge_data.accuracy.marine.total).round(1),
+                             accuracy_marine:         (100 * gorge_data.accuracy.marine.no_onos).round(1),
                            }
                            GORGE_MESSAGE_TEMPLATE % args
                          else
