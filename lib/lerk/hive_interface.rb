@@ -110,18 +110,7 @@ EOF
 
       @cmd_counter.increment({ status: :success }, event: event)
 
-      gorge_data = gorge_query(account_id)
-      gorge_statistics = if gorge_data
-                           args = {
-                             kd_alien:                gorge_data.kdr.alien.round(2),
-                             kd_marine:               gorge_data.kdr.marine.round(2),
-                             accuracy_alien:          (100 * gorge_data.accuracy.alien).round(1),
-                             accuracy_marine:         (100 * gorge_data.accuracy.marine.no_onos).round(1),
-                           }
-                           GORGE_MESSAGE_TEMPLATE % args
-                         else
-                           '(No additional data available)'
-                         end
+      gorge_statistics = format_gorge_data(gorge_query(account_id))
 
       args = {
         alias:            data.alias,
@@ -239,6 +228,40 @@ EOF
       client.player_statistics(steam_id)
     rescue Gorgerb::Error => e
       nil
+    end
+
+    def self.format_gorge_data(gorge_data)
+      if gorge_data
+        args = {}
+
+        args[:kd_alien] = if gorge_data.kdr.alien
+                            gorge_data.kdr.alien.round(2)
+                          else
+                            'N/A'
+                          end
+
+        args[:kd_marine] = if gorge_data.kdr.marine
+                             gorge_data.kdr.marine.round(2)
+                           else
+                             'N/A'
+                           end
+
+        args[:accuracy_alien] = if gorge_data.accuracy.alien
+                                  gorge_data.accuracy.alien.round(1)
+                                else
+                                  'N/A'
+                                end
+
+        args[:accuracy_marine] = if gorge_data.accuracy.marine.no_onos
+                                   gorge_data.accuracy.marine.no_onos.round(1)
+                                 else
+                                   'N/A'
+                                 end
+
+        GORGE_MESSAGE_TEMPLATE % args
+      else
+        '(No additional data available)'
+      end
     end
   end
 end
