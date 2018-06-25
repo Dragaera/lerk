@@ -12,13 +12,18 @@ glance - what to expact from upgrading to a new version.
 
 ### Fixed
 
-- Exception if Gorge data incomplete, eg no accuracy available.
-
 ### Security
 
 ### Deprecated
 
 ### Removed
+
+
+## [0.19.1] - 2018-06-25
+
+### Fixed
+
+- Exception if Gorge data incomplete, eg no accuracy available.
 
 
 ## [0.19.0] - 2018-05-19
