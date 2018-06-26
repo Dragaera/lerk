@@ -247,13 +247,13 @@ EOF
                            end
 
         args[:accuracy_alien] = if gorge_data.accuracy.alien
-                                  gorge_data.accuracy.alien.round(1)
+                                  (100 * gorge_data.accuracy.alien).round(1)
                                 else
                                   'N/A'
                                 end
 
         args[:accuracy_marine] = if gorge_data.accuracy.marine.no_onos
-                                   gorge_data.accuracy.marine.no_onos.round(1)
+                                   (100 * gorge_data.accuracy.marine.no_onos).round(1)
                                  else
                                    'N/A'
                                  end

@@ -12,6 +12,8 @@ glance - what to expact from upgrading to a new version.
 
 ### Fixed
 
+- Gorge-based accuracy data was shown as fraction rather than percentage.
+
 ### Security
 
 ### Deprecated
