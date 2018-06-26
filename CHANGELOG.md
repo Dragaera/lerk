@@ -12,13 +12,18 @@ glance - what to expact from upgrading to a new version.
 
 ### Fixed
 
-- Gorge-based accuracy data was shown as fraction rather than percentage.
-
 ### Security
 
 ### Deprecated
 
 ### Removed
+
+
+## [0.19.2] - 2018-06-26
+
+### Fixed
+
+- Gorge-based accuracy data was shown as fraction rather than percentage.
 
 
 ## [0.19.1] - 2018-06-25
