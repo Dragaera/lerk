@@ -11,7 +11,7 @@ gem 'prometheus-client', '~> 0.7.1'
 gem 'steam-id2', '~> 0.4.0'
 
 # Hive 2 API binding
-gem 'hive-stalker', '~> 0.1.0'
+gem 'hive-stalker', '~> 0.1.5'
 # Gorge binding
 gem 'gorgerb', '~> 0.1.0'
 # Formatting helper
