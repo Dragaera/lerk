@@ -22,7 +22,7 @@ GEM
     ethon (0.11.0)
       ffi (>= 1.3.0)
     event_emitter (0.2.6)
-    ffi (1.9.23)
+    ffi (1.9.25)
     gorgerb (0.1.0)
       typhoeus (~> 1.3)
     hive-stalker (0.1.5)
@@ -62,7 +62,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.5)
-    websocket (1.2.5)
+    websocket (1.2.8)
     websocket-client-simple (0.3.0)
       event_emitter
       websocket
@@ -74,7 +74,7 @@ DEPENDENCIES
   discordrb!
   dotenv
   gorgerb (~> 0.1.0)
-  hive-stalker (~> 0.1.0)
+  hive-stalker (~> 0.1.5)
   prometheus-client (~> 0.7.1)
   pry
   rack
