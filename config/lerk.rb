@@ -71,5 +71,14 @@ EOF
       CONNECT_TIMEOUT     = ENV.fetch('GORGE_CONNECT_TIMEOUT', 1).to_i
       TIMEOUT             = ENV.fetch('GORGE_TIMEOUT', 2).to_i
     end
+
+    module Database
+      ADAPTER  = 'postgres'
+      HOST     = ENV['DB_HOST']
+      PORT     = ENV['DB_PORT']
+      DATABASE = ENV.fetch('DB_DATABASE')
+      USER     = ENV['DB_USER']
+      PASS     = ENV['DB_PASS']
+    end
   end
 end

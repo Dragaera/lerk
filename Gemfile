@@ -7,6 +7,12 @@ gem 'discordrb', ref: '09cbc79', git: 'https://github.com/meew0/discordrb.git'
 gem 'rack'
 gem 'prometheus-client', '~> 0.7.1'
 
+gem 'sequel'
+gem 'pg'
+gem 'sequel_pg', require: 'sequel'
+
+gem 'rake'
+
 # Resolving Steam IDs
 gem 'steam-id2', '~> 0.4.0'
 

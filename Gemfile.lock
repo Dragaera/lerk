@@ -38,6 +38,7 @@ GEM
     netrc (0.11.0)
     opus-ruby (1.0.1)
       ffi
+    pg (1.0.0)
     prometheus-client (0.7.1)
       quantile (~> 0.2.0)
     pry (0.11.3)
@@ -45,12 +46,17 @@ GEM
       method_source (~> 0.9.0)
     quantile (0.2.1)
     rack (2.0.5)
+    rake (12.3.1)
     rbnacl (3.4.0)
       ffi
     rest-client (2.0.2)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    sequel (5.10.0)
+    sequel_pg (1.11.0)
+      pg (>= 0.18.0)
+      sequel (>= 4.38.0)
     silverball (0.1.2)
     steam-condenser (1.3.11)
       multi_json (~> 1.6)
@@ -75,9 +81,13 @@ DEPENDENCIES
   dotenv
   gorgerb (~> 0.1.0)
   hive-stalker (~> 0.1.0)
+  pg
   prometheus-client (~> 0.7.1)
   pry
   rack
+  rake
+  sequel
+  sequel_pg
   silverball (~> 0.1.0)
   steam-id2 (~> 0.4.0)
 

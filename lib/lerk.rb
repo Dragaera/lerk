@@ -1,6 +1,6 @@
 # coding: utf-8
 
-require 'lerk/config'
+require 'lerk/models' unless ENV['LERK_SKIP_MODELS'] == '1'
 
 require 'lerk/lerk'
 require 'lerk/version'
