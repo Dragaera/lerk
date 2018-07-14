@@ -24,6 +24,15 @@ gem 'gorgerb', '~> 0.1.0'
 gem 'silverball', '~> 0.1.0'
 
 group :development do
-  gem 'dotenv'
   gem 'pry'
+end
+
+group :testing do
+  gem 'rspec'
+  gem 'database_cleaner'
+  gem 'factory_bot'
+end
+
+group :development, :testing do
+  gem 'dotenv'
 end
