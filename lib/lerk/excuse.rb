@@ -3,8 +3,10 @@ require 'json'
 
 module Lerk
   module Excuse
-    EXCUSES_FILE = 'data/excuses.json'
     # Based on http://pages.cs.wisc.edu/~ballard/bofh/excuses
+    EXCUSES_FILE = 'data/excuses.json'
+
+    EVENT_KEY_EXCUSE_TOTAL = 'cmd_excuse_total'
 
     def self.register(bot)
       @bot = bot
@@ -28,7 +30,7 @@ module Lerk
     end
 
     def self.init_events
-      @event_excuse = Event.get_or_create('cmd_excuses_total')
+      @event_excuse = Event.get_or_create EVENT_KEY_EXCUSE_TOTAL
     end
 
     def self.init_metrics

@@ -28,6 +28,9 @@ EOF
 **Time**: **Total**: %{time_total}, **Alien**: %{time_alien}, **Marine**: %{time_marine}
 EOF
 
+    EVENT_KEY_HIVE_SUCCESS = 'cmd_hive_success'
+    EVENT_KEY_HIVE_FAILURE = 'cmd_hive_failure'
+
     def self.register(bot)
       @bot = bot
 
@@ -61,8 +64,8 @@ EOF
     end
 
     def self.init_events
-      @event_hive_success = Event.get_or_create('cmd_hive_success')
-      @event_hive_failure = Event.get_or_create('cmd_hive_failure')
+      @event_hive_success = Event.get_or_create EVENT_KEY_HIVE_SUCCESS
+      @event_hive_failure = Event.get_or_create EVENT_KEY_HIVE_FAILURE
     end
 
     def self.init_metrics
