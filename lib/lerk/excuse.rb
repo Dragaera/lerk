@@ -10,6 +10,7 @@ module Lerk
 
     def self.register(bot)
       @bot = bot
+      @logger = ::Lerk.logger
       @excuses = JSON.load(IO.read(EXCUSES_FILE))['excuses']
 
       init_rate_limiter
@@ -67,7 +68,7 @@ module Lerk
       amount ||= 1
       amount = amount.to_i
 
-      Logger.command(event, 'excuse', { amount: amount })
+      @logger.command(event, 'excuse', { amount: amount })
 
       if amount < 1
         @cmd_counter.increment({ status: :less_than_one }, event: event)

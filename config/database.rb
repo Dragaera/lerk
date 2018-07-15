@@ -10,6 +10,7 @@ module Lerk
         opts[:user]     = USER     if USER
         opts[:password] = PASS     if PASS
         opts[:test]     = true
+        opts[:logger]   = ::Lerk::Logger.new
 
         Sequel.connect(opts)
       end

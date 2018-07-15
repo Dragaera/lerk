@@ -7,6 +7,7 @@ module Lerk
 
     def self.register(bot)
       @bot = bot
+      @logger = ::Lerk.logger
 
       init_metrics
       bind_commands
@@ -49,13 +50,13 @@ module Lerk
     end
 
     def self.command_version(event)
-      Logger.command(event, 'version')
+      @logger.command(event, 'version')
       @cmd_version_counter.increment({ status: :success }, event: event)
       "Version: #{ ::Lerk::VERSION }\nChangelog: https://github.com/Dragaera/lerk/blob/master/CHANGELOG.md"
     end
 
     def self.command_servers(event, create_invites: false)
-      Logger.command(event, 'servers')
+      @logger.command(event, 'servers')
 
       unless @bot.connected?
         @cmd_servers_counter.increment({ status: :not_connected }, event: event)

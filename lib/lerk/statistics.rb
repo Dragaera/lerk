@@ -6,6 +6,7 @@ module Lerk
 
     def self.register(bot)
       @bot = bot
+      @logger = ::Lerk.logger
 
       init_metrics
       init_events
@@ -44,7 +45,7 @@ module Lerk
     def self.command_stats(event)
       discord_user = Util.discord_user_from_database(event)
 
-      Logger.command(event, 'stats')
+      @logger.command(event, 'stats')
 
       @cmd_counter.increment({ status: :success }, event: event)
       @event_stats_total.count(discord_user)

@@ -14,6 +14,8 @@ puts "Loading env-specific env variables from #{ env_file }"
 Dotenv.load env_file
 
 require 'config/lerk'
+# Required by database configuration
+require 'lib/lerk/logger'
 require 'config/database'
 
 require 'lerk'

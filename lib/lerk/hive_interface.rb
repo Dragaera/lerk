@@ -33,6 +33,7 @@ EOF
 
     def self.register(bot)
       @bot = bot
+      @logger = ::Lerk.logger
 
       init_rate_limiter
       init_events
@@ -112,7 +113,7 @@ EOF
       end
 
       steam_id ||= event.author.username
-      Logger.command(event, 'hive_query', { identifier: steam_id })
+      @logger.command(event, 'hive_query', { identifier: steam_id })
 
       account_id = resolve_account_id(steam_id)
       if account_id.nil?
