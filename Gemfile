@@ -13,6 +13,8 @@ gem 'sequel_pg', require: 'sequel'
 
 gem 'rake'
 
+gem 'warning'
+
 # Resolving Steam IDs
 gem 'steam-id2', '~> 0.4.0'
 
