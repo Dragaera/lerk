@@ -30,7 +30,12 @@ module Lerk
     end
 
     def self.init_events
-      @event_excuse = Event.get_or_create EVENT_KEY_EXCUSE_TOTAL
+      @event_excuse = Event.register(
+        key: EVENT_KEY_EXCUSE_TOTAL,
+        show_in_stats_output: true,
+        stats_output_description: '**Honest souls** (Requested excuses)',
+        stats_output_order: 11,
+      )
     end
 
     def self.init_metrics

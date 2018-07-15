@@ -4,8 +4,29 @@ module Lerk
     let!(:user)  { create(:discord_user) }
     let!(:event_counter) { create(:event_counter, event: event, discord_user: user ) }
 
-    describe '::get_or_create' do
+    describe '::register' do
+      it 'creates the event with supplied arguments if needed' do
+        event = Event.register(key: 'foo_baz', stats_output_description: 'Foo Baz', show_in_stats_output: false)
+        expect(event.key).to eq 'foo_baz'
+        expect(event.stats_output_description).to eq 'Foo Baz'
+        expect(event.show_in_stats_output).to be false
+      end
 
+      it 'adjusts additional attributes if any changed' do
+        create(:event, key: 'foo_baz', show_in_stats_output: true)
+        expect(Event.register(key: 'foo_baz', show_in_stats_output: false).show_in_stats_output).to be false
+      end
+
+      it 'returns the event in any case' do
+        expect(Event.register(
+          key: event.key,
+          show_in_stats_output: event.show_in_stats_output,
+          stats_output_description: event.stats_output_description
+        )).to eq event
+      end
+    end
+
+    describe '::get_or_create' do
       it "creates the event if it doesn't exist yet" do
         expect { Event.get_or_create('foo_baz') }.to change { Event.count }.by(1)
 

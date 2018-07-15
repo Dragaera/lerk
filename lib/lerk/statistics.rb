@@ -4,21 +4,6 @@ module Lerk
   module Statistics
     EVENT_KEY_STATS = 'cmd_stats_total'
 
-    EVENT_STATISTICS = {
-      HiveInterface.const_get(:EVENT_KEY_HIVE_SUCCESS) => {
-        show_topmost: 5,
-        description: 'Stats whores',
-      },
-      HiveInterface.const_get(:EVENT_KEY_HIVE_FAILURE) => {
-        show_topmost: 5,
-        description: 'Unable to recall their Steam ID',
-      },
-      Excuse.const_get(:EVENT_KEY_EXCUSE_TOTAL) => {
-        show_topmost: 5,
-        description: 'In need of excuses',
-      },
-    }
-
     def self.register(bot)
       @bot = bot
 
@@ -29,7 +14,12 @@ module Lerk
 
     private
     def self.init_events
-      @event_stats_total = Event.get_or_create EVENT_KEY_STATS
+      @event_stats_total = Event.register(
+        key: EVENT_KEY_STATS,
+        show_in_stats_output: true,
+        stats_output_description: '**Meta!** (`!stats` uses)',
+        stats_output_order: 21,
+      )
     end
 
     def self.init_metrics
@@ -60,11 +50,12 @@ module Lerk
       @event_stats_total.count(discord_user)
 
       out = ['You want stats? Have some stats!', '']
-      EVENT_STATISTICS.each do |key, hsh|
-        event = Event.first(key: key)
-
-        out << "**#{ hsh[:description] }**:"
-        top_n_counters = event.event_counters_dataset.order_by(Sequel.desc(:count)).first(hsh[:show_topmost])
+      Event
+        .where(show_in_stats_output: true)
+        .order(Sequel.asc(:stats_output_order))
+        .each do |event|
+        out << event.stats_output_description
+        top_n_counters = event.event_counters_dataset.order_by(Sequel.desc(:count)).first(5)
         out += top_n_counters.map do |counter|
           "- #{ counter.discord_user.last_nick }: #{ counter.count }"
         end

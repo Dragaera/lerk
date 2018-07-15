@@ -64,8 +64,19 @@ EOF
     end
 
     def self.init_events
-      @event_hive_success = Event.get_or_create EVENT_KEY_HIVE_SUCCESS
-      @event_hive_failure = Event.get_or_create EVENT_KEY_HIVE_FAILURE
+      @event_hive_success = Event.register(
+        key: EVENT_KEY_HIVE_SUCCESS,
+        show_in_stats_output: true,
+        stats_output_description: '**Stats whores** (`!hive` uses)',
+        stats_output_order: 1,
+      )
+
+      @event_hive_failure = Event.register(
+        key: EVENT_KEY_HIVE_FAILURE,
+        show_in_stats_output: true,
+        stats_output_description: '**"I forgot my Steam ID"** (failed `!hive` uses)',
+        stats_output_order: 2,
+      )
     end
 
     def self.init_metrics

@@ -14,7 +14,10 @@ Sequel.migration do
     create_table :events do
       primary_key :id
 
-      String :key, null: false, unique: true
+      String  :stats_output_description
+      String  :key,                  null: false, unique: true
+      Boolean :show_in_stats_output, null: false, default: true
+      Fixnum  :stats_output_order,   null: false, unique: true
 
       Time :created_at, null: false, default: Sequel::CURRENT_TIMESTAMP
       Time :updated_at

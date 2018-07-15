@@ -9,6 +9,8 @@ module Lerk
 
     factory :event, class: 'Lerk::Event' do
       sequence(:key)
+      stats_output_description ''
+      show_in_stats_output false
     end
 
     factory :event_counter, class: 'Lerk::EventCounter' do
