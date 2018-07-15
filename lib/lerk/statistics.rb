@@ -49,20 +49,23 @@ module Lerk
       @cmd_counter.increment({ status: :success }, event: event)
       @event_stats_total.count(discord_user)
 
-      out = ['You want stats? Have some stats!', '']
-      Event
-        .where(show_in_stats_output: true)
-        .order(Sequel.asc(:stats_output_order))
-        .each do |event|
-        out << event.stats_output_description
-        top_n_counters = event.event_counters_dataset.order_by(Sequel.desc(:count)).first(5)
-        out += top_n_counters.map do |counter|
-          "- #{ counter.discord_user.last_nick }: #{ counter.count }"
-        end
-        out << ''
-      end
+      event.channel.send_embed do |embed|
+        embed.title = 'Want some stats? Have some stats!'
 
-      out.join("\n")
+        embed.description = Event
+          .where(show_in_stats_output: true)
+          .order(Sequel.asc(:stats_output_order))
+          .map do |command_event|
+
+          top_n_counters = command_event.event_counters_dataset.order_by(Sequel.desc(:count)).first(5)
+          player_count_list = top_n_counters.map do |counter|
+            "- #{ counter.discord_user.last_nick }: #{ counter.count }"
+          end.join("\n")
+
+          "#{ command_event.stats_output_description }\n#{ player_count_list }\n"
+        end.join("\n")
+
+      end
     end
   end
 end
