@@ -32,6 +32,7 @@ EOF
       @bot = bot
 
       init_rate_limiter
+      init_events
       init_metrics
       bind_commands
     end
@@ -59,6 +60,11 @@ EOF
       )
     end
 
+    def self.init_events
+      @event_hive_success = Event.get_or_create('cmd_hive_success')
+      @event_hive_failure = Event.get_or_create('cmd_hive_failure')
+    end
+
     def self.init_metrics
       @cmd_counter = Prometheus::Wrapper.default.counter(
         :lerk_commands_hive_total,
@@ -84,6 +90,8 @@ EOF
     end
 
     def self.command_hive(event, steam_id)
+      discord_user = Util.discord_user_from_database(event)
+
       if rate_limited?(event)
         @cmd_counter.increment({ status: :rate_limited }, event: event)
         return
@@ -97,6 +105,7 @@ EOF
         msg = "Could not convert #{ steam_id } to account ID, please try another."
         msg << steamid_help_message(event)
         @cmd_counter.increment({ status: :identifier_invalid }, event: event)
+        @event_hive_failure.count(discord_user)
         return msg
       end
 
@@ -105,10 +114,12 @@ EOF
         msg = "Could not retrieve data for ID #{ steam_id } (Account: #{ account_id })."
         msg << steamid_help_message(event)
         @cmd_counter.increment({ status: :no_data_retrieved }, event: event)
+        @event_hive_failure.count(discord_user)
         return msg
       end
 
       @cmd_counter.increment({ status: :success }, event: event)
+      @event_hive_success.count(discord_user)
 
       gorge_statistics = format_gorge_data(gorge_query(account_id))
 

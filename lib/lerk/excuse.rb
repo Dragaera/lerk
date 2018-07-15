@@ -11,6 +11,7 @@ module Lerk
       @excuses = JSON.load(IO.read(EXCUSES_FILE))['excuses']
 
       init_rate_limiter
+      init_events
       init_metrics
       bind_commands
     end
@@ -24,6 +25,10 @@ module Lerk
         limit:     Config::Excuse::PER_USER_RATE_LIMIT,
         time_span: Config::Excuse::PER_USER_RATE_TIME_SPAN
       )
+    end
+
+    def self.init_events
+      @event_excuse = Event.get_or_create('cmd_excuses_total')
     end
 
     def self.init_metrics
@@ -50,6 +55,8 @@ module Lerk
     end
 
     def self.command_excuse(event, amount)
+      discord_user = Util.discord_user_from_database(event)
+
       amount ||= 1
       amount = amount.to_i
 
@@ -69,6 +76,7 @@ module Lerk
       end
 
       @cmd_counter.increment({ status: :success }, event: event)
+      @event_excuse.count(discord_user, count: amount)
       @excuse_counter.increment({}, amount, event: event)
       if amount == 1
         get_excuses(amount: 1).first
