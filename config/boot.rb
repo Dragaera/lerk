@@ -9,9 +9,14 @@ Bundler.require(:default, APPLICATION_ENV)
 # generates plenty of those.
 Warning.ignore(/instance variable @\w+ not initialized/)
 
-env_file = ".env.#{ APPLICATION_ENV }"
-puts "Loading env-specific env variables from #{ env_file }"
-Dotenv.load env_file
+# Not limiting to specific environments, as we don't know which envs it might be used in.
+if Object.const_defined?(:Dotenv)
+  env_file = ".env.#{ APPLICATION_ENV }"
+  puts "Loading env-specific env variables from #{ env_file }"
+  Dotenv.load env_file
+else
+  puts 'Dotenv not available, skipping.'
+end
 
 require 'config/lerk'
 # Required by database configuration
