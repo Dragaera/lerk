@@ -10,6 +10,7 @@ module Lerk
     factory :event, class: 'Lerk::Event' do
       sequence(:key)
       stats_output_description ''
+      sequence(:stats_output_order)
       show_in_stats_output false
     end
 

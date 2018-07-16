@@ -6,10 +6,11 @@ module Lerk
 
     describe '::register' do
       it 'creates the event with supplied arguments if needed' do
-        event = Event.register(key: 'foo_baz', stats_output_description: 'Foo Baz', show_in_stats_output: false)
+        event = Event.register(key: 'foo_baz', stats_output_description: 'Foo Baz', show_in_stats_output: false, stats_output_order: 3)
         expect(event.key).to eq 'foo_baz'
         expect(event.stats_output_description).to eq 'Foo Baz'
         expect(event.show_in_stats_output).to be false
+        expect(event.stats_output_order).to eq 3
       end
 
       it 'adjusts additional attributes if any changed' do
@@ -28,10 +29,11 @@ module Lerk
 
     describe '::get_or_create' do
       it "creates the event if it doesn't exist yet" do
-        expect { Event.get_or_create('foo_baz') }.to change { Event.count }.by(1)
+        expect { Event.get_or_create('foo_baz', stats_output_order: 2) }.to change { Event.count }.by(1)
 
-        new_event = Event.get_or_create('bar_baz')
+        new_event = Event.get_or_create('bar_baz', stats_output_order: 3)
         expect(new_event.key).to eq 'bar_baz'
+        expect(new_event.stats_output_order).to eq 3
       end
 
       it 'retrieves the event if it exists already' do
