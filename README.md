@@ -26,6 +26,16 @@ which have no default, but are required for operation.
 | `DISCORD_TOKEN`       | y        |         | OAuth Token.                               |
 | `LOG_LEVEL`           | n        | normal  | Logging verbosity. Valid values are 'debug', 'verbose', 'normal', 'quiet', 'silent' |
 
+#### Database
+
+| Setting       | Required | Default   | Description                                                          |
+| ------------- | -------- | --------- | -------------------------------------------------------------------- |
+| `DB_HOST`     | n        |           | Address of database server. Default is adapter-specific.             |
+| `DB_PORT`     | n        |           | Port of database server. Default is adapter-specific.                |
+| `DB_DATABASE` | y        |           | Name of database which to use.                                       |
+| `DB_USER`     |          |           | User which to authenticate as. Default is adapter-specific.          |
+| `DB_PASS`     |          |           | Password with which to authenticate as. Default is adapter-specific. |
+
 #### Lerk
 
 | Setting               | Required | Default | Description                                |
@@ -67,3 +77,9 @@ which have no default, but are required for operation.
 | `EXCUSE_MAXIMUM_AMOUNT`          | n        | 10      | Maximum number of excuses to request per command execution |
 | `EXCUSE_PER_USER_RATE_LIMIT`     | n        | 20      | Number of excuses per time limit which user can request.   |
 | `EXCUSE_PER_USER_RATE_TIME_SPAN` | n        | 20      | Per user rate limiting interval in seconds.                |
+
+#### Statistics
+
+| Setting                          | Required | Default | Description                                            |
+| -------------------------------- | -------- | ------- | ------------------------------------------------------ |
+| `STATISTICS_SHOW_TOPMOST_N`      | n        | 5       | Number of users to show per command in `!stats` output |
