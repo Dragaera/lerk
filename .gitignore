@@ -9,4 +9,6 @@ db/*.db
 
 # Dotenv
 .env*
-!.env.dist
+!.env.*.dist
+
+spec/examples.txt

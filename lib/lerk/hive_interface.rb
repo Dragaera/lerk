@@ -28,10 +28,15 @@ EOF
 **Time**: **Total**: %{time_total}, **Alien**: %{time_alien}, **Marine**: %{time_marine}
 EOF
 
+    EVENT_KEY_HIVE_SUCCESS = 'cmd_hive_success'
+    EVENT_KEY_HIVE_FAILURE = 'cmd_hive_failure'
+
     def self.register(bot)
       @bot = bot
+      @logger = ::Lerk.logger
 
       init_rate_limiter
+      init_events
       init_metrics
       bind_commands
     end
@@ -56,6 +61,22 @@ EOF
         :hive_help_message,
         limit:     Config::HiveInterface::HELP_MESSAGE_RATE_LIMIT,
         time_span: Config::HiveInterface::HELP_MESSAGE_RATE_TIME_SPAN
+      )
+    end
+
+    def self.init_events
+      @event_hive_success = Event.register(
+        key: EVENT_KEY_HIVE_SUCCESS,
+        show_in_stats_output: true,
+        stats_output_description: '**Stats whores** (`!hive` uses)',
+        stats_output_order: 1,
+      )
+
+      @event_hive_failure = Event.register(
+        key: EVENT_KEY_HIVE_FAILURE,
+        show_in_stats_output: true,
+        stats_output_description: '**"I forgot my Steam ID"** (failed `!hive` uses)',
+        stats_output_order: 2,
       )
     end
 
@@ -84,19 +105,22 @@ EOF
     end
 
     def self.command_hive(event, steam_id)
+      discord_user = Util.discord_user_from_database(event)
+
       if rate_limited?(event)
         @cmd_counter.increment({ status: :rate_limited }, event: event)
         return
       end
 
       steam_id ||= event.author.username
-      Logger.command(event, 'hive_query', { identifier: steam_id })
+      @logger.command(event, 'hive_query', { identifier: steam_id })
 
       account_id = resolve_account_id(steam_id)
       if account_id.nil?
         msg = "Could not convert #{ steam_id } to account ID, please try another."
         msg << steamid_help_message(event)
         @cmd_counter.increment({ status: :identifier_invalid }, event: event)
+        @event_hive_failure.count(discord_user)
         return msg
       end
 
@@ -105,10 +129,12 @@ EOF
         msg = "Could not retrieve data for ID #{ steam_id } (Account: #{ account_id })."
         msg << steamid_help_message(event)
         @cmd_counter.increment({ status: :no_data_retrieved }, event: event)
+        @event_hive_failure.count(discord_user)
         return msg
       end
 
       @cmd_counter.increment({ status: :success }, event: event)
+      @event_hive_success.count(discord_user)
 
       gorge_statistics = format_gorge_data(gorge_query(account_id))
 

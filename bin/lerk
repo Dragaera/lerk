@@ -1,14 +1,8 @@
 #! /usr/bin/env ruby
-# encoding: utf-8
 
-require 'bundler/setup'
+$LOAD_PATH.unshift '.'
 
-if ENV.fetch('DEVELOPMENT', false)
-  require 'dotenv'
-  Dotenv.load
-end
-
-require 'lerk'
+require 'config/boot'
 
 lerk = Lerk::Lerk.new(
   client_id:         Lerk::Config::DISCORD_CLIENT_ID,

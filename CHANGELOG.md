@@ -8,6 +8,10 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
+- Persistence layer using a Postgres database.
+- Tracking of command usage per-user.
+- `!stats` command to show top x users per command.
+
 ### Changed
 
 ### Fixed

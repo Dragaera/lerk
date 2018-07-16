@@ -1,0 +1,27 @@
+version: '3'
+
+networks:
+  lerk-dev:
+  lerk-testing:
+
+volumes:
+  database-data:
+
+services:
+  database:
+    image: 'postgres:9.6'
+    env_file: .env.development
+    networks:
+      - lerk-dev
+    ports:
+      - 15432:5432
+    volumes:
+      - database-data:/var/lib/postgresql/data
+
+  database-testing:
+    image: 'postgres:9.6'
+    env_file: .env.testing
+    networks:
+      - lerk-testing
+    ports:
+      - 25432:5432

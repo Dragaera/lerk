@@ -36,6 +36,7 @@ module Lerk
       Internal.register(@bot)
       HiveInterface.register(@bot)
       Excuse.register(@bot)
+      Statistics.register(@bot)
     end
 
     def invite_url
@@ -63,7 +64,7 @@ module Lerk
     private
     def register_admin_users
       Config::Lerk::ADMIN_USERS.each do |id|
-        Logger.log("Granting admin access to user #{ id }")
+        ::Lerk.logger.log("Granting admin access to user #{ id }")
         @bot.set_user_permission(id, Lerk::PERMISSION_LEVEL_ADMIN)
       end
     end

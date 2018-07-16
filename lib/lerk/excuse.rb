@@ -3,14 +3,18 @@ require 'json'
 
 module Lerk
   module Excuse
-    EXCUSES_FILE = 'data/excuses.json'
     # Based on http://pages.cs.wisc.edu/~ballard/bofh/excuses
+    EXCUSES_FILE = 'data/excuses.json'
+
+    EVENT_KEY_EXCUSE_TOTAL = 'cmd_excuse_total'
 
     def self.register(bot)
       @bot = bot
+      @logger = ::Lerk.logger
       @excuses = JSON.load(IO.read(EXCUSES_FILE))['excuses']
 
       init_rate_limiter
+      init_events
       init_metrics
       bind_commands
     end
@@ -23,6 +27,15 @@ module Lerk
         :excuse_per_user_calls,
         limit:     Config::Excuse::PER_USER_RATE_LIMIT,
         time_span: Config::Excuse::PER_USER_RATE_TIME_SPAN
+      )
+    end
+
+    def self.init_events
+      @event_excuse = Event.register(
+        key: EVENT_KEY_EXCUSE_TOTAL,
+        show_in_stats_output: true,
+        stats_output_description: '**Honest souls** (Requested excuses)',
+        stats_output_order: 11,
       )
     end
 
@@ -50,10 +63,12 @@ module Lerk
     end
 
     def self.command_excuse(event, amount)
+      discord_user = Util.discord_user_from_database(event)
+
       amount ||= 1
       amount = amount.to_i
 
-      Logger.command(event, 'excuse', { amount: amount })
+      @logger.command(event, 'excuse', { amount: amount })
 
       if amount < 1
         @cmd_counter.increment({ status: :less_than_one }, event: event)
@@ -69,6 +84,7 @@ module Lerk
       end
 
       @cmd_counter.increment({ status: :success }, event: event)
+      @event_excuse.count(discord_user, count: amount)
       @excuse_counter.increment({}, amount, event: event)
       if amount == 1
         get_excuses(amount: 1).first
