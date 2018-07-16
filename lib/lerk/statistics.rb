@@ -58,7 +58,7 @@ module Lerk
           .order(Sequel.asc(:stats_output_order))
           .map do |command_event|
 
-          top_n_counters = command_event.event_counters_dataset.order_by(Sequel.desc(:count)).first(5)
+          top_n_counters = command_event.event_counters_dataset.order_by(Sequel.desc(:count)).first(Config::Statistics::SHOW_TOPMOST_N)
           player_count_list = top_n_counters.map do |counter|
             "- #{ counter.discord_user.last_nick }: #{ counter.count }"
           end.join("\n")
