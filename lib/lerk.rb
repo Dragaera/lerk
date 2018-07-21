@@ -7,6 +7,7 @@ require 'lerk/version'
 require 'lerk/excuse'
 require 'lerk/statistics'
 
+require 'lerk/hints'
 require 'lerk/util'
 
 require 'lerk/worker'
