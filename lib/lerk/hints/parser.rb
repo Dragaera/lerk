@@ -3,22 +3,20 @@ require 'csv'
 module Lerk
   module Hints
     class Parser
-      def initialize(source: )
-        @source = source
+      def initialize(source: , require_identifier: false, require_tags: false)
         @logger = ::Lerk.logger
+
+        @source = source
+        @require_tags, @require_identifier = require_tags, require_identifier
       end
 
       def parse
         data = @source.contents
 
         @logger.info 'Parsing data'
-        raw_data = data.lines
-
-        # First three rows are headers / notes / empty
-        3.times { raw_data.shift }
 
         hints = CSV.
-          parse(raw_data.join("\n")).
+          parse(data).
           map do |ary|
           {
             identifier:     ary[0],
@@ -30,8 +28,11 @@ module Lerk
           }
         end
 
+        # First three rows are headers / notes / empty
+        3.times { hints.shift }
+
         hints_count = hints.length
-        @logger.info "Got #{ hints_count } hints from file."
+        @logger.info "Got #{ hints_count } hints from source."
 
         hints.reject! do |hsh|
           hsh[:text].nil? || hsh[:text].empty?
@@ -45,17 +46,21 @@ module Lerk
         @logger.info "Rejected #{ hints_count - hints.length } hints because not game-ready."
         hints_count = hints.length
 
-        hints.reject! do |hsh|
-          hsh[:identifier].nil? || hsh[:identifier].empty?
+        if @require_identifier
+          hints.reject! do |hsh|
+            hsh[:identifier].nil? || hsh[:identifier].empty?
+          end
+          @logger.info "Rejected #{ hints_count - hints.length } hints because no identifier."
+          hints_count = hints.length
         end
-        @logger.info "Rejected #{ hints_count - hints.length } hints because no identifier."
-        hints_count = hints.length
 
-        hints.reject! do |hsh|
-          hsh[:tags].empty?
+        if @require_tags
+          hints.reject! do |hsh|
+            hsh[:tags].empty?
+          end
+          @logger.info "Rejected #{ hints_count - hints.length } hints because no tags."
+          hints_count = hints.length
         end
-        @logger.info "Rejected #{ hints_count - hints.length } hints because no tags."
-        hints_count = hints.length
 
         hints
       end
