@@ -3,11 +3,14 @@ require 'csv'
 module Lerk
   module Hints
     class Parser
-      def initialize(source: , require_identifier: false, require_tags: false)
-        @logger = ::Lerk.logger
+      TAG_BLACKLIST = ['', '<>']
 
-        @source = source
-        @require_tags, @require_identifier = require_tags, require_identifier
+      def initialize(source: , require_identifier: false, require_tags: false)
+        @source             = source
+        @require_tags       = require_tags
+        @require_identifier = require_identifier
+
+        @logger = ::Lerk.logger
       end
 
       def parse
@@ -21,7 +24,7 @@ module Lerk
           {
             identifier:     ary[0],
             text:           ary[2],
-            tags:           ary[3].to_s.split(';').map(&:strip),
+            tags:           ary[3].to_s.split(';').map(&:strip) - TAG_BLACKLIST,
             group_basic:    ary[4] == 'TRUE',
             group_advanced: ary[5] == 'TRUE',
             group_veteran:  ary[6] == 'TRUE',
