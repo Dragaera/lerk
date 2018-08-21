@@ -11,5 +11,24 @@ module Lerk
         group_veteran:  kwargs.fetch(:group_veteran),
       )
     end
+
+    def pretty_print
+      out = []
+      if group_basic
+        out << '[Basic]'
+      elsif group_advanced
+        out << '[Advanced]'
+      elsif group_veteran
+        out << '[Veteran]'
+      end
+
+      if hint_tags_dataset.count > 0
+        out << "(#{ hint_tags_dataset.select_map(:tag).join(', ') })"
+      end
+
+      out << text
+
+      out.join(' ')
+    end
   end
 end

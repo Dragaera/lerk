@@ -6,6 +6,8 @@ require 'lerk/lerk'
 require 'lerk/version'
 require 'lerk/excuse'
 require 'lerk/statistics'
+require 'lerk/internal'
+require 'lerk/hive_interface'
 
 require 'lerk/hints'
 require 'lerk/util'
