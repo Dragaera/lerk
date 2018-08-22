@@ -21,7 +21,6 @@ module Lerk
     end
 
     factory :hint_tag, class: 'Lerk::HintTag' do
-      tag 'foo'
     end
   end
 end

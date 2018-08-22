@@ -32,6 +32,9 @@ module Lerk
           tags.merge(hsh[:tags])
         end
 
+        # Prevents import issues due to inconsistent capitalization.
+        tags.map! { |tag| tag.downcase }
+
         # Not the most efficient way (compared with eg a bulk query + insert),
         # but as the number of unique tags will be low, this is fine.
         tags.each do |tag|
@@ -50,7 +53,7 @@ module Lerk
           )
 
           hsh[:tags].each do |tag|
-            tag_obj = @tag_cache.fetch(tag)
+            tag_obj = @tag_cache.fetch(tag.downcase)
             hint.add_hint_tag(tag_obj)
           end
         end
