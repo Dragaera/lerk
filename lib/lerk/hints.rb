@@ -8,24 +8,32 @@ require 'lerk/hints/sequel_exporter'
 
 module Lerk
   module Hints
-def self.register(bot)
+    EVENT_KEY_HINTS = 'cmd_hints_total'
+
+    def self.register(bot)
       @bot = bot
       @logger = ::Lerk.logger
 
-      init_rate_limiter
       init_events
       init_metrics
       bind_commands
     end
 
     private
-    def self.init_rate_limiter
-    end
-
     def self.init_events
+      @event_hints_total = Event.register(
+        key: EVENT_KEY_HINTS,
+        show_in_stats_output: true,
+        stats_output_description: '**I need help** (`!hint` uses)',
+        stats_output_order: 5,
+      )
     end
 
     def self.init_metrics
+      @cmd_counter = Prometheus::Wrapper.default.counter(
+        :lerk_commands_hint_total,
+        'Number of issued `!hint` commands.'
+      )
     end
 
     def self.bind_commands
@@ -45,7 +53,12 @@ def self.register(bot)
     end
 
     def self.command_hint(event, group: nil, tag: nil)
+      discord_user = Util.discord_user_from_database(event)
+
       @logger.command(event, 'hint', { group: group, tag: tag })
+
+      @cmd_counter.increment({ status: :success }, event: event)
+      @event_hints_total.count(discord_user)
 
       group = group.gsub(/^--/, '').to_sym if group
 
