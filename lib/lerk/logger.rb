@@ -5,6 +5,11 @@ module Lerk
     def initialize(*args, level: :debug)
       @logger = ::Logger.new(STDOUT)
       @logger.level = level
+
+      @logger.formatter = proc do |severity, datetime, progname, msg|
+        date_format = datetime.iso8601
+        "[#{ datetime.iso8601 }] (#{ severity }): #{ msg }\n"
+      end
     end
 
     def log(msg)

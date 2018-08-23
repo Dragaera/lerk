@@ -10,7 +10,7 @@ module Lerk
     factory :event, class: 'Lerk::Event' do
       sequence(:key)
       stats_output_description ''
-      sequence(:stats_output_order)
+      stats_output_order 1
       show_in_stats_output false
     end
 
@@ -18,6 +18,9 @@ module Lerk
       event
       discord_user
       count 0
+    end
+
+    factory :hint_tag, class: 'Lerk::HintTag' do
     end
   end
 end

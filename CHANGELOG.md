@@ -8,6 +8,10 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
+- `!tiplist` command which lists various sources of hints and tips.
+- `!tip` command to retrieve hints and tips about NS2.
+- Command to automatically import NS2 tips from Google doc.
+
 ### Changed
 
 ### Fixed

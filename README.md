@@ -83,3 +83,9 @@ which have no default, but are required for operation.
 | Setting                          | Required | Default | Description                                            |
 | -------------------------------- | -------- | ------- | ------------------------------------------------------ |
 | `STATISTICS_SHOW_TOPMOST_N`      | n        | 5       | Number of users to show per command in `!stats` output |
+
+#### Hints
+
+| Setting                       | Required | Default | Description                                            |
+| ----------------------------- | -------- | ------- | ------------------------------------------------------ |
+| `HINTS_SNARKY_COMMENT_CHANCE` | n        | 100     | Reciprocal of chance of a snarky comment, rather than a helpful hint, being returned. Set to `0` to disable snarky comments. |

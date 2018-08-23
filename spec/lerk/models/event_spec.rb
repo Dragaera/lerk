@@ -1,6 +1,6 @@
 module Lerk
   RSpec.describe Event do
-    let!(:event) { create(:event, key: 'foo_bar') }
+    let!(:event) { create(:event, key: 'foo_bar', stats_output_order: 1) }
     let!(:user)  { create(:discord_user) }
     let!(:event_counter) { create(:event_counter, event: event, discord_user: user ) }
 
@@ -14,7 +14,7 @@ module Lerk
       end
 
       it 'adjusts additional attributes if any changed' do
-        create(:event, key: 'foo_baz', show_in_stats_output: true)
+        create(:event, key: 'foo_baz', show_in_stats_output: true, stats_output_order: 2)
         expect(Event.register(key: 'foo_baz', show_in_stats_output: false).show_in_stats_output).to be false
       end
 

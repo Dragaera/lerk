@@ -9,10 +9,6 @@ require 'silverball'
 
 require_relative 'logger'
 
-require_relative 'internal'
-require_relative 'hive_interface'
-require_relative 'excuse'
-
 module Lerk
   class Lerk
     PERMISSION_LEVEL_ADMIN = 10
@@ -37,6 +33,7 @@ module Lerk
       HiveInterface.register(@bot)
       Excuse.register(@bot)
       Statistics.register(@bot)
+      Hints.register(@bot)
     end
 
     def invite_url
