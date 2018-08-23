@@ -53,7 +53,7 @@ def self.register(bot)
       if Config::Hints::SNARKY_COMMENT_CHANCE > 0 && rand(Config::Hints::SNARKY_COMMENT_CHANCE) == 0
         'Just git gud!'
       else
-        hint.pretty_print
+        hint.text
       end
 
     rescue ArgumentError => e

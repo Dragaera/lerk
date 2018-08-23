@@ -38,22 +38,23 @@ module Lerk
     end
 
     def pretty_print
-      out = []
-      if group_basic
-        out << '[Basic]'
-      elsif group_advanced
-        out << '[Advanced]'
-      elsif group_veteran
-        out << '[Veteran]'
-      end
+      group = if group_basic
+                '[Basic]'
+              elsif group_advanced
+                '[Advanced]'
+              elsif group_veteran
+                '[Veteran]'
+              end
 
-      if hint_tags_dataset.count > 0
-        out << "(#{ hint_tags_dataset.select_map(:tag).join(', ') })"
-      end
+      tags = if hint_tags_dataset.count > 0
+               "(#{ hint_tags_dataset.select_map(:tag).join(', ') })"
+             else
+               nil
+             end
 
-      out << text
+      header = [group, tags].compact.join(' ')
 
-      out.join(' ')
+      "**#{ group } #{ tags }**\n#{ text }"
     end
 
     private
