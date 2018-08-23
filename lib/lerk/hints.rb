@@ -50,7 +50,11 @@ def self.register(bot)
       group = group.gsub(/^--/, '').to_sym if group
 
       hint = Hint.find(group: group, tag: tag).to_a.sample
-      return hint.pretty_print
+      if Config::Hints::SNARKY_COMMENT_CHANCE > 0 && rand(Config::Hints::SNARKY_COMMENT_CHANCE) == 0
+        'Just git gud!'
+      else
+        hint.pretty_print
+      end
 
     rescue ArgumentError => e
       e.message

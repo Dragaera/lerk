@@ -76,6 +76,10 @@ EOF
       SHOW_TOPMOST_N = ENV.fetch('STATISTICS_SHOW_TOPMOST_N', '5').to_i
     end
 
+    module Hints
+      SNARKY_COMMENT_CHANCE = ENV.fetch('HINTS_SNARKY_COMMENT_CHANCE', '100').to_i
+    end
+
     module Database
       ADAPTER  = 'postgres'
       HOST     = ENV['DB_HOST']
