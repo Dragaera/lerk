@@ -12,6 +12,9 @@ glance - what to expact from upgrading to a new version.
 
 ### Fixed
 
+- Placeholder replacement did not prefer longest matches, leading to partial
+  replacements of placeholders if one placeholder was a substring of another.
+
 ### Security
 
 ### Deprecated
