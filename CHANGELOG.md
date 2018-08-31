@@ -12,14 +12,19 @@ glance - what to expact from upgrading to a new version.
 
 ### Fixed
 
-- Placeholder replacement did not prefer longest matches, leading to partial
-  replacements of placeholders if one placeholder was a substring of another.
-
 ### Security
 
 ### Deprecated
 
 ### Removed
+
+
+## [0.21.1] - 2018-08-31
+
+### Fixed
+
+- Placeholder replacement did not prefer longest matches, leading to partial
+  replacements of placeholders if one placeholder was a substring of another.
 
 
 ## [0.21.0] - 2018-08-23
