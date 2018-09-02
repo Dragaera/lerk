@@ -60,6 +60,16 @@ module Lerk
       ) do |event, arg|
         command_tiplist(event, arg)
       end
+
+      @bot.command(
+        [:tags],
+        description: 'List all known hint tags',
+        usage: '!tags',
+        min_args: 0,
+        max_args: 0,
+      ) do |event|
+        command_tags(event)
+      end
     end
 
     def self.command_hint(event, group: nil, tag: nil)
@@ -95,6 +105,19 @@ module Lerk
       else
         "Invalid argument. Pick one of: (guide, movement, voyeur)"
       end
+    end
+
+    def self.command_tags(event)
+      HintTag.map do |tag|
+        [
+          tag.tag,
+          tag.hints_dataset.count
+        ]
+      end.
+      sort_by(&:last).
+      reverse.
+      map { |ary| "#{ ary.first }: #{ ary.last }" }.
+      join("\n")
     end
   end
 end
