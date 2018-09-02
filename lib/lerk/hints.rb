@@ -77,6 +77,17 @@ module Lerk
           'Invalid sort order, check command usage.'
         end
       end
+
+      @bot.command(
+        :reloadhints,
+        description: 'Reload hints',
+        usage: '!reloadhints',
+        min_args: 0,
+        max_args: 0,
+        permission_level: Lerk::PERMISSION_LEVEL_HINTS_ADMIN,
+      ) do  |event|
+        command_reloadhints(event)
+      end
     end
 
     def self.command_hint(event, group: nil, tag: nil)
@@ -101,8 +112,6 @@ module Lerk
     end
 
     def self.command_tiplist(event, arg)
-      discord_user = Util.discord_user_from_database(event)
-
       @logger.command(event, 'tiplist', { category: arg })
 
       if arg.nil?
@@ -119,8 +128,6 @@ module Lerk
     end
 
     def self.command_tags(event, sort_order)
-      discord_user = Util.discord_user_from_database(event)
-
       @logger.command(event, 'tags', { sort_order: sort_order })
 
       data = HintTag.map do |tag|
@@ -139,6 +146,24 @@ module Lerk
       data.
         map { |ary| "#{ ary.first }: #{ ary.last }" }.
         join("\n")
+    end
+
+    def self.command_reloadhints(event)
+      discord_user = Util.discord_user_from_database(event)
+
+      @logger.command(event, 'reloadhints')
+
+      puts "\n\n#{ event.class }\n\n"
+
+      event.send_message "Reloading hints.\nStarting download..."
+      source = Hints::HTTPDownloadSource.new
+      parser = Hints::Parser.new(source: source)
+      hints = parser.parse
+      event.send_message "Read #{ hints.length } hints from source."
+      exporter = Hints::SequelExporter.new(hints)
+      exporter.export
+      event << "Stored #{ Hint.count } hints in database."
+      event << 'Have a nice day!'
     end
   end
 end
