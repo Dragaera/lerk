@@ -10,6 +10,8 @@ module Lerk
   module Hints
     EVENT_KEY_HINTS = 'cmd_hints_total'
 
+    TAGS_SORT_ORDER = { '--name' => :name, '--hints' => :hints, nil => :name }
+
     def self.register(bot)
       @bot = bot
       @logger = ::Lerk.logger
@@ -64,11 +66,16 @@ module Lerk
       @bot.command(
         [:tags],
         description: 'List all known hint tags',
-        usage: '!tags',
+        usage: '!tags [--name|--hints]',
         min_args: 0,
-        max_args: 0,
-      ) do |event|
-        command_tags(event)
+        max_args: 1,
+      ) do |event, sort_order|
+        sort_order = TAGS_SORT_ORDER[sort_order]
+        if sort_order
+          command_tags(event, sort_order)
+        else
+          'Invalid sort order, check command usage.'
+        end
       end
     end
 
@@ -94,6 +101,10 @@ module Lerk
     end
 
     def self.command_tiplist(event, arg)
+      discord_user = Util.discord_user_from_database(event)
+
+      @logger.command(event, 'tiplist', { category: arg })
+
       if arg.nil?
         'Check Sticky Messages in #newbie-corner in the official NS2 Discord!'
       elsif arg == 'guide'
@@ -107,17 +118,27 @@ module Lerk
       end
     end
 
-    def self.command_tags(event)
-      HintTag.map do |tag|
+    def self.command_tags(event, sort_order)
+      discord_user = Util.discord_user_from_database(event)
+
+      @logger.command(event, 'tags', { sort_order: sort_order })
+
+      data = HintTag.map do |tag|
         [
           tag.tag,
           tag.hints_dataset.count
         ]
-      end.
-      sort_by(&:last).
-      reverse.
-      map { |ary| "#{ ary.first }: #{ ary.last }" }.
-      join("\n")
+      end
+
+      if sort_order == :name
+        data = data.sort_by(&:first)
+      elsif sort_order == :hints
+        data = data.sort_by(&:last).reverse
+      end
+
+      data.
+        map { |ary| "#{ ary.first }: #{ ary.last }" }.
+        join("\n")
     end
   end
 end
