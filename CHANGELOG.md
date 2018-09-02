@@ -8,9 +8,15 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
+- `!tags` command which allows to list known hint tags, sorted alphabetically
+  or by number of tagged hints.
+- `!reloadhints` command which allows reloading hints from the source.
+
 ### Changed
 
 ### Fixed
+
+- Log usages of `!tipslist` command.
 
 ### Security
 

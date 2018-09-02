@@ -21,6 +21,11 @@ module Lerk
         raise ArgumentError, "ADMIN_USERS must contain numeric IDs only!" unless id.match(/^\d+$/)
         id.to_i
       end
+
+      HINTS_ADMIN_USERS = ENV.fetch('LERK_HINTS_ADMIN_USERS', '').split(',').map do |id|
+        raise ArgumentError, "HINTS_ADMIN_USERS must contain numeric IDs only!" unless id.match(/^\d+$/)
+        id.to_i
+      end
     end
 
     module Prometheus
