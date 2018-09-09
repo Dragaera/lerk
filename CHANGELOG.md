@@ -10,7 +10,11 @@ glance - what to expact from upgrading to a new version.
 
 ### Changed
 
+- Update dependencies and base image.
+
 ### Fixed
+
+- `!hive` not supporting Steam ID64s outside of usual range.
 
 ### Security
 

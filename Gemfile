@@ -16,7 +16,7 @@ gem 'rake'
 gem 'warning'
 
 # Resolving Steam IDs
-gem 'steam-id2', '~> 0.4.0'
+gem 'steam-id2', '~> 0.4.5'
 
 # Hive 2 API binding
 gem 'hive-stalker', '~> 0.1.0'
