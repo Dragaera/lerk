@@ -10,17 +10,24 @@ glance - what to expact from upgrading to a new version.
 
 ### Changed
 
-- Update dependencies and base image.
-
 ### Fixed
-
-- `!hive` not supporting Steam ID64s outside of usual range.
 
 ### Security
 
 ### Deprecated
 
 ### Removed
+
+
+## [0.22.1] - 2018-09-09
+
+### Changed
+
+- Update dependencies and base image.
+
+### Fixed
+
+- `!hive` not supporting Steam ID64s outside of usual range.
 
 
 ## [0.22.0] - 2018-09-02
