@@ -19,6 +19,14 @@ glance - what to expact from upgrading to a new version.
 ### Removed
 
 
+## [0.23.0] - 2018-09-11
+
+### Added
+
+- `!calendarfact` command which provides one with a well-known piece of
+  calendar trivia.
+
+
 ## [0.22.1] - 2018-09-09
 
 ### Changed
