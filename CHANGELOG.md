@@ -12,13 +12,18 @@ glance - what to expact from upgrading to a new version.
 
 ### Fixed
 
-- `!stats` combining output of `!excuse` and `!calendarfact`.
-
 ### Security
 
 ### Deprecated
 
 ### Removed
+
+
+## [0.23.1] - 2018-09-11
+
+### Fixed
+
+- `!stats` combining output of `!excuse` and `!calendarfact`.
 
 
 ## [0.23.0] - 2018-09-11
