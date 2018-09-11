@@ -69,6 +69,11 @@ EOF
       PER_USER_RATE_TIME_SPAN = ENV.fetch('EXCUSE_PER_USER_RATE_TIME_SPAN', 60).to_i
     end
 
+    module CalendarFacts
+      PER_USER_RATE_LIMIT     = ENV.fetch('CALENDAR_FACTS_PER_USER_RATE_LIMIT', 5).to_i
+      PER_USER_RATE_TIME_SPAN = ENV.fetch('CALENDAR_FACTS_PER_USER_RATE_TIME_SPAN', 60).to_i
+    end
+
     module Gorge
       BASE_URL            = ENV['GORGE_BASE_URL']
       HTTP_BASIC_USER     = ENV['GORGE_HTTP_BASIC_USER']

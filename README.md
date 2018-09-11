@@ -79,6 +79,13 @@ which have no default, but are required for operation.
 | `EXCUSE_PER_USER_RATE_LIMIT`     | n        | 20      | Number of excuses per time limit which user can request.   |
 | `EXCUSE_PER_USER_RATE_TIME_SPAN` | n        | 20      | Per user rate limiting interval in seconds.                |
 
+#### Calendar Facts
+
+| Setting                                  | Required | Default | Description                                                       |
+| ---------------------------------------- | -------- | ------- | ----------------------------------------------------------------- |
+| `CALENDAR_FACTS_PER_USER_RATE_LIMIT`     | n        | 20      | Number of calendar facts per time limit which user can request.   |
+| `CALENDAR_FACTS_PER_USER_RATE_TIME_SPAN` | n        | 20      | Per user rate limiting interval in seconds.                       |
+
 #### Statistics
 
 | Setting                          | Required | Default | Description                                            |
