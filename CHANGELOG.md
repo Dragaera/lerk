@@ -12,6 +12,8 @@ glance - what to expact from upgrading to a new version.
 
 ### Fixed
 
+- `!stats` combining output of `!excuse` and `!calendarfact`.
+
 ### Security
 
 ### Deprecated

@@ -6,7 +6,7 @@ module Lerk
     # Based on https://xkcd.com/1930/
     CALENDAR_FACTS_FILE = 'data/calendar_facts.json'
 
-    EVENT_KEY_CALENDAR_FACTS_TOTAL = 'cmd_excuse_total'
+    EVENT_KEY_CALENDAR_FACTS_TOTAL = 'cmd_calendar_facts_total'
 
     def self.register(bot)
       @bot = bot
