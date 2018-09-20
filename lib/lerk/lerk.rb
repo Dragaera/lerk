@@ -62,14 +62,14 @@ module Lerk
 
     private
     def register_admin_users
-      Config::Lerk::ADMIN_USERS.each do |id|
-        ::Lerk.logger.log("Granting admin access to user #{ id }")
-        @bot.set_user_permission(id, Lerk::PERMISSION_LEVEL_ADMIN)
-      end
-
       Config::Lerk::HINTS_ADMIN_USERS.each do |id|
         ::Lerk.logger.log("Granting hints admin access to user #{ id }")
         @bot.set_user_permission(id, Lerk::PERMISSION_LEVEL_HINTS_ADMIN)
+      end
+
+      Config::Lerk::ADMIN_USERS.each do |id|
+        ::Lerk.logger.log("Granting admin access to user #{ id }")
+        @bot.set_user_permission(id, Lerk::PERMISSION_LEVEL_ADMIN)
       end
     end
   end
