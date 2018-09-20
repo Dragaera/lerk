@@ -8,6 +8,8 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
+- Ignore users' commands if on ignore list.
+
 ### Changed
 
 ### Fixed

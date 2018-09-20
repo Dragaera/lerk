@@ -6,5 +6,10 @@ module Lerk
       nickname = event.user.nickname || event.user.username
       DiscordUser.get_or_create(event.user.id.to_s, last_nick: nickname)
     end
+
+    def self.ignored?(event)
+      user = discord_user_from_database(event)
+      user.ignored
+    end
   end
 end

@@ -100,6 +100,7 @@ EOF
         min_args: 0,
         max_args: 1,
       ) do |event, steam_id|
+        return if Util.ignored?(event)
         command_hive(event, steam_id)
       end
     end

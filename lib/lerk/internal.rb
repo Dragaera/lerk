@@ -34,6 +34,7 @@ module Lerk
         min_args: 0,
         max_args: 0,
       ) do  |event|
+        return if Util.ignored?(event)
         command_version(event)
       end
 
@@ -45,6 +46,7 @@ module Lerk
         max_args: 1,
         permission_level: Lerk::PERMISSION_LEVEL_ADMIN,
       ) do  |event, create_invites|
+        return if Util.ignored?(event)
         command_servers(event, create_invites: create_invites == 'true')
       end
 
@@ -56,6 +58,7 @@ module Lerk
         max_args: 1,
         permission_level: Lerk::PERMISSION_LEVEL_ADMIN,
       ) do |event, id|
+        return if Util.ignored?(event)
         command_ignore(event, id)
       end
 
@@ -67,6 +70,7 @@ module Lerk
         max_args: 0,
         permission_level: Lerk::PERMISSION_LEVEL_ADMIN,
       ) do |event|
+        return if Util.ignored?(event)
         command_ignores(event)
       end
 
@@ -78,6 +82,7 @@ module Lerk
         max_args: 1,
         permission_level: Lerk::PERMISSION_LEVEL_ADMIN,
       ) do |event, id|
+        # Not ignoring people here on purpose - don't want to lock ourselves out. ;)
         command_unignore(event, id)
       end
     end

@@ -54,6 +54,7 @@ module Lerk
         min_args: 0,
         max_args: 0,
       ) do |event|
+        return if Util.ignored?(event)
         command_calendarfact(event)
       end
     end
