@@ -12,5 +12,13 @@ module Lerk
         DiscordUser.create(discord_id: discord_id, last_nick: last_nick || 'UNKNOWN_NICK')
       end
     end
+
+    def ignore
+      update(ignored: true)
+    end
+
+    def unignore
+      update(ignored: false)
+    end
   end
 end
