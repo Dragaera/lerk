@@ -4,7 +4,7 @@ module Lerk
       # Nickname is the optional per-server name a user can choose freely.
       # However, it will be undefined for eg DMs.
       nickname = event.user.nickname || event.user.username
-      DiscordUser.get_or_create(event.user.id.to_s, nickname)
+      DiscordUser.get_or_create(event.user.id.to_s, last_nick: nickname)
     end
   end
 end
