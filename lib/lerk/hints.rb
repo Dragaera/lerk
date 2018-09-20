@@ -46,6 +46,7 @@ module Lerk
         min_args: 0,
         max_args: 2,
       ) do |event, arg1, arg2|
+        return if Util.ignored?(event)
         if arg1 && arg1.start_with?('--')
           command_hint(event, group: arg1, tag: arg2)
         else
@@ -60,6 +61,7 @@ module Lerk
         min_args: 0,
         max_args: 1,
       ) do |event, arg|
+        return if Util.ignored?(event)
         command_tiplist(event, arg)
       end
 
@@ -70,6 +72,7 @@ module Lerk
         min_args: 0,
         max_args: 1,
       ) do |event, sort_order|
+        return if Util.ignored?(event)
         sort_order = TAGS_SORT_ORDER[sort_order]
         if sort_order
           command_tags(event, sort_order)
@@ -86,6 +89,7 @@ module Lerk
         max_args: 0,
         permission_level: Lerk::PERMISSION_LEVEL_HINTS_ADMIN,
       ) do  |event|
+        return if Util.ignored?(event)
         command_reloadhints(event)
       end
     end

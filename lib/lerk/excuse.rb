@@ -58,6 +58,7 @@ module Lerk
         min_args: 0,
         max_args: 1,
       ) do |event, amount|
+        return if Util.ignored?(event)
         command_excuse(event, amount)
       end
     end

@@ -34,6 +34,7 @@ module Lerk
         min_args: 0,
         max_args: 0,
       ) do  |event|
+        return if Util.ignored?(event)
         command_version(event)
       end
 
@@ -45,7 +46,44 @@ module Lerk
         max_args: 1,
         permission_level: Lerk::PERMISSION_LEVEL_ADMIN,
       ) do  |event, create_invites|
+        return if Util.ignored?(event)
         command_servers(event, create_invites: create_invites == 'true')
+      end
+
+      @bot.command(
+        :ignore,
+        description: 'Ignores a user',
+        usage: '!ignore <discord_id>',
+        min_args: 1,
+        max_args: 1,
+        permission_level: Lerk::PERMISSION_LEVEL_ADMIN,
+      ) do |event, id|
+        return if Util.ignored?(event)
+        command_ignore(event, id)
+      end
+
+      @bot.command(
+        :ignores,
+        description: 'Lists ignores',
+        usage: '!ignores',
+        min_args: 0,
+        max_args: 0,
+        permission_level: Lerk::PERMISSION_LEVEL_ADMIN,
+      ) do |event|
+        return if Util.ignored?(event)
+        command_ignores(event)
+      end
+
+      @bot.command(
+        :unignore,
+        description: 'Unignores a user',
+        usage: '!unignore <discord_id>',
+        min_args: 1,
+        max_args: 1,
+        permission_level: Lerk::PERMISSION_LEVEL_ADMIN,
+      ) do |event, id|
+        # Not ignoring people here on purpose - don't want to lock ourselves out. ;)
+        command_unignore(event, id)
       end
     end
 
@@ -79,6 +117,41 @@ module Lerk
       @cmd_servers_counter.increment({ status: :success }, event: event)
 
       msg
+    end
+
+    def self.command_ignore(event, id)
+      @logger.command(event, 'ignore', discord_id: id)
+
+      user = DiscordUser.first(discord_id: id)
+      if user
+        user.ignore
+        "User '#{ user.last_nick }' added to ignore list."
+      else
+        "I don't know this user."
+      end
+    end
+
+    def self.command_unignore(event, id)
+      @logger.command(event, 'unignore', discord_id: id)
+
+      user = DiscordUser.first(discord_id: id)
+      if user
+        user.unignore
+        "User '#{ user.last_nick }' removed from ignore list."
+      else
+        "I don't know this user."
+      end
+    end
+
+    def self.command_ignores(event)
+      @logger.command(event, 'ignores')
+
+      out = ['Ignores:']
+      out += DiscordUser.
+        where(ignored: true).
+        map { |user| "- #{ user.discord_id } (#{ user.last_nick })"}
+
+      out.join("\n")
     end
 
     def self.create_invite(server)
