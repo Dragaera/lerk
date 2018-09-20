@@ -8,8 +8,6 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
-- Ignore users' commands if on ignore list.
-
 ### Changed
 
 ### Fixed
@@ -19,6 +17,13 @@ glance - what to expact from upgrading to a new version.
 ### Deprecated
 
 ### Removed
+
+
+## [0.24.0] - 2018-09-20
+
+### Added
+
+- Allow adding users to ignore list, which will make the bot ignore their commands.
 
 
 ## [0.23.1] - 2018-09-11
