@@ -36,6 +36,7 @@ module Lerk
       CalendarFacts.register(@bot)
       Statistics.register(@bot)
       Hints.register(@bot)
+      UserAccounts.register(@bot)
     end
 
     def invite_url

@@ -9,6 +9,7 @@ require 'lerk/calendar_facts'
 require 'lerk/statistics'
 require 'lerk/internal'
 require 'lerk/hive_interface'
+require 'lerk/user_accounts'
 
 require 'lerk/hints'
 require 'lerk/util'

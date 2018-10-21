@@ -116,7 +116,7 @@ EOF
       steam_id ||= event.author.username
       @logger.command(event, 'hive_query', { identifier: steam_id })
 
-      account_id = resolve_account_id(steam_id)
+      account_id = Util.resolve_steam_account_id(steam_id)
       if account_id.nil?
         msg = "Could not convert #{ steam_id } to account ID, please try another."
         msg << steamid_help_message(event)
@@ -159,15 +159,6 @@ EOF
         end
       else
         PLAINTEXT_MESSAGE_TEMPLATE % args
-      end
-    end
-
-    def self.resolve_account_id(s)
-      begin
-        SteamID.from_string(s, api_key: Config::HiveInterface::STEAM_WEB_API_KEY).account_id
-      rescue WebApiError, ArgumentError => e
-        puts "Error: Could not convert #{ s } to account ID: #{ e.message }"
-        nil
       end
     end
 

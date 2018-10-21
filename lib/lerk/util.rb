@@ -11,5 +11,15 @@ module Lerk
       user = discord_user_from_database(event)
       user.ignored
     end
+
+    def self.resolve_steam_account_id(s)
+      begin
+        SteamID.from_string(s, api_key: Config::HiveInterface::STEAM_WEB_API_KEY).account_id
+      rescue WebApiError, ArgumentError => e
+        puts "Error: Could not convert #{ s } to account ID: #{ e.message }"
+        nil
+      end
+    end
+
   end
 end
