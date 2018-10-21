@@ -113,8 +113,12 @@ EOF
         return
       end
 
-      steam_id ||= event.author.username
-      @logger.command(event, 'hive_query', { identifier: steam_id })
+      if discord_user.steam_account_id
+        steam_id ||= discord_user.steam_account_id
+      else
+        steam_id ||= event.author.username
+        @logger.command(event, 'hive_query', { identifier: steam_id })
+      end
 
       account_id = Util.resolve_steam_account_id(steam_id)
       if account_id.nil?
