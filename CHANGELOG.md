@@ -8,9 +8,6 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
-- Allow players to tell the bot about their Steam accounts.
-- Use linked Steam account as default value for Hive queries.
-
 ### Changed
 
 ### Fixed
@@ -20,6 +17,14 @@ glance - what to expact from upgrading to a new version.
 ### Deprecated
 
 ### Removed
+
+
+## [0.25.0] - 2018-10-21
+
+### Added
+
+- Allow players to tell the bot about their Steam accounts.
+- Use linked Steam account as default value for Hive queries.
 
 
 ## [0.24.0] - 2018-09-20
