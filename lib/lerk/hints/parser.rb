@@ -7,7 +7,7 @@ module Lerk
       TAG_BLACKLIST = ['', '<>']
 
       # Enforcing a minimum length of two will prevent matching 'I'.
-      VARIABLE_PLACEHOLDER_PATTERN = /[A-Z_]{2,}/
+      VARIABLE_PLACEHOLDER_PATTERN = /[A-Z](?:[A-Z]|[0-9])[A-Z0-9_]*/
       BINDING_PLACEHOLDER_PATTERN = /BIND_[A-Za-z0-9]+/
 
       DEFAULT_VARIABLE_FILE = 'data/hints/variables.json'
