@@ -10,10 +10,10 @@ module Lerk
       VARIABLE_PLACEHOLDER_PATTERN = /[A-Z_]{2,}/
       BINDING_PLACEHOLDER_PATTERN = /BIND_[A-Za-z0-9]+/
 
-      VARIABLE_FILE = 'data/hints/variables.json'
-      BINDING_FILE  = 'data/hints/bindings.json'
+      DEFAULT_VARIABLE_FILE = 'data/hints/variables.json'
+      DEFAULT_BINDING_FILE  = 'data/hints/bindings.json'
 
-      def initialize(source: , require_identifier: false, require_tags: false)
+      def initialize(source: , require_identifier: false, require_tags: false, variable_file: nil, binding_file: nil)
         @source             = source
         @require_tags       = require_tags
         @require_identifier = require_identifier
@@ -21,8 +21,8 @@ module Lerk
         @logger = ::Lerk.logger
         @existing_identifiers = Set.new
 
-        @variables = JSON.parse(File.read(VARIABLE_FILE))
-        @bindings  = JSON.parse(File.read(BINDING_FILE))
+        @variables = JSON.parse(File.read(variable_file || DEFAULT_VARIABLE_FILE))
+        @bindings  = JSON.parse(File.read(binding_file  || DEFAULT_BINDING_FILE))
       end
 
       def parse
@@ -32,6 +32,7 @@ module Lerk
         @logger.info 'Parsing data'
 
         hints = CSV.parse(data).map do |ary|
+          puts "Processing: #{ ary.inspect }"
           identifier = ary[0]
           text = ary[2]
           if identifier.nil? || identifier.empty?
@@ -114,6 +115,11 @@ module Lerk
       end
 
       def generate_identifier(text, offset: nil)
+        # If saved with eg LibreOffice, empty cells are not quoted, which
+        # will then become, on import, `nil`.
+        # For identifier generation we require as string, however.
+        text = text.to_s
+
         # Prevents ID conflicts in case of duplicate hints without configured
         # identifiers.
         text << offset.to_s if offset
