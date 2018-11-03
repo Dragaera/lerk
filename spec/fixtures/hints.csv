@@ -1,0 +1,7 @@
+"A",,"NOTE: You do not need to check every single tip, but I want every tip to be checked/reviewed by TWO guys to be approved :D","TAG",,,,,,,,,,,,,,,"Please check comments for the suggestions!",,,,
+"Variable","=","Tiptext","TAG",,,,,,,,,,,,,,,"Suggestion ","Suggestion 2","Addition 3","Suggestion 4",
+,,,,,,,,,,,,,,,,,,"80","19","4","1","0"
+"TESTING_1","=","Testing REGULAR_IDENTIFIER",,"TRUE","FALSE",,"TRUE","TRUE","TRUE","TRUE","TRUE","TRUE","FALSE","TRUE","TRUE","TRUE","TRUE",,,,,
+"TESTING_2",,"Testing SHORT","Aim;","FALSE","TRUE",,"FALSE","FALSE","FALSE","TRUE","TRUE","TRUE","TRUE","TRUE","TRUE","TRUE","TRUE",,,,,
+"TESTING_3",,"Testing NUMERIC_1_IDENTIFIER NUMERIC_2","Aim;","TRUE",,,"TRUE","TRUE","FALSE",,"TRUE","TRUE","TRUE","TRUE","TRUE","TRUE","TRUE",,,,,
+"TESTING_4",,"Testing UNKNOWN",,"TRUE","FALSE","FALSE","FALSE","FALSE",,,,,,,,,,,,,,
