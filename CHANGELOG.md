@@ -10,17 +10,24 @@ glance - what to expact from upgrading to a new version.
 
 ### Changed
 
-- Update dependencies.
-
 ### Fixed
-
-- Allow placeholders containing numbers in hint texts.
 
 ### Security
 
 ### Deprecated
 
 ### Removed
+
+
+## [0.25.1] - 2018-11-03
+
+### Changed
+
+- Update dependencies.
+
+### Fixed
+
+- Allow placeholders containing numbers in hint texts.
 
 
 ## [0.25.0] - 2018-10-21
