@@ -10,8 +10,6 @@ glance - what to expact from upgrading to a new version.
 
 ### Changed
 
-- Update dependencies
-
 ### Fixed
 
 ### Security
@@ -19,6 +17,13 @@ glance - what to expact from upgrading to a new version.
 ### Deprecated
 
 ### Removed
+
+
+## [0.25.2] - 2019-02-04
+
+### Changed
+
+- Update dependencies
 
 
 ## [0.25.1] - 2018-11-03
