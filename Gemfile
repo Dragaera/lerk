@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Discord API binding
-gem 'discordrb', ref: '09cbc79', git: 'https://github.com/meew0/discordrb.git'
+gem 'discordrb', '~> 3.3.0'
 
 # Prometheus metrics
 gem 'rack'
