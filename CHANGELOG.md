@@ -12,6 +12,9 @@ glance - what to expact from upgrading to a new version.
 
 ### Changed
 
+- Update dependencies
+- Update base image to ruby 2.6.1
+
 ### Fixed
 
 ### Security
