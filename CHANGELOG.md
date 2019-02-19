@@ -8,12 +8,7 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
-- `!leave` command which allows leaving a Discord guild.
-
 ### Changed
-
-- Update dependencies
-- Update base image to ruby 2.6.1
 
 ### Fixed
 
@@ -22,6 +17,18 @@ glance - what to expact from upgrading to a new version.
 ### Deprecated
 
 ### Removed
+
+
+## [0.26.0] - 2019-02-19
+
+### Added
+
+- `!leave` command which allows leaving a Discord guild.
+
+### Changed
+
+- Update dependencies
+- Update base image to ruby 2.6.1
 
 
 ## [0.25.2] - 2019-02-04
