@@ -85,6 +85,18 @@ module Lerk
         # Not ignoring people here on purpose - don't want to lock ourselves out. ;)
         command_unignore(event, id)
       end
+
+      @bot.command(
+        :leave,
+        description: 'Leaves a guild',
+        usage: '!leave <guild_id>',
+        min_args: 1,
+        max_args: 1,
+        permission_level: Lerk::PERMISSION_LEVEL_ADMIN,
+      ) do |event, id|
+        return if Util.ignored?(event)
+        command_leave(event, id)
+      end
     end
 
     def self.command_version(event)
@@ -152,6 +164,24 @@ module Lerk
         map { |user| "- #{ user.discord_id } (#{ user.last_nick })"}
 
       out.join("\n")
+    end
+
+    def self.command_leave(event, id)
+      begin
+        guild_id = Integer(id)
+      rescue ArgumentError
+        event << 'Guild ID must be numeric'
+        return
+      end
+
+      server = @bot.servers[guild_id]
+
+      unless server
+        event << 'No such server'
+        return
+      end
+
+      server.leave
     end
 
     def self.create_invite(server)
