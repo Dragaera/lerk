@@ -8,6 +8,8 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
+- `!interblag` module https://xkcd.com/181/
+
 ### Changed
 
 ### Fixed

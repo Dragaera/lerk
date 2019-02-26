@@ -34,6 +34,7 @@ module Lerk
       HiveInterface.register(@bot)
       Excuse.register(@bot)
       CalendarFacts.register(@bot)
+      Interblag.register(@bot)
       Statistics.register(@bot)
       Hints.register(@bot)
       UserAccounts.register(@bot)
