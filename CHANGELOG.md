@@ -19,7 +19,7 @@ glance - what to expact from upgrading to a new version.
 ### Removed
 
 
-## [0.28.0]
+## [0.28.0] - 2019-03-04
 
 ### Changed
 
