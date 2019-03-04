@@ -19,7 +19,7 @@ gem 'warning'
 gem 'steam-id2', '~> 0.4.5'
 
 # Hive 2 API binding
-gem 'hive-stalker', '~> 0.1.0'
+gem 'hive-stalker', '~> 0.2.0'
 # Gorge binding
 gem 'gorgerb', '~> 0.1.0'
 # Formatting helper

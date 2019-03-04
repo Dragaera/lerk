@@ -10,6 +10,9 @@ glance - what to expact from upgrading to a new version.
 
 ### Changed
 
+- Update dependencies. Most notably updates `hive-stalker` to `0.2.0`,
+  supporting the new output format.
+
 ### Fixed
 
 ### Security
