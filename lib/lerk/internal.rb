@@ -97,6 +97,18 @@ module Lerk
         return if Util.ignored?(event)
         command_leave(event, id)
       end
+
+      @bot.command(
+        :invite,
+        description: 'Attempt to generat an invite to a guild',
+        usage: '!invite <guild_id>',
+        min_args: 1,
+        max_args: 1,
+        permission_level: Lerk::PERMISSION_LEVEL_ADMIN,
+      ) do |event, id|
+        return if Util.ignored?(event)
+        command_invite(event, id)
+      end
     end
 
     def self.command_version(event)
@@ -182,6 +194,24 @@ module Lerk
       end
 
       server.leave
+    end
+
+    def self.command_invite(event, id)
+      begin
+        guild_id = Integer(id)
+      rescue ArgumentError
+        event << 'Guild ID must be numeric'
+        return
+      end
+
+      server = @bot.servers[guild_id]
+
+      unless server
+        event << 'No such server'
+        return
+      end
+
+      event << "Invite: #{ create_invite(server) }"
     end
 
     def self.create_invite(server)
