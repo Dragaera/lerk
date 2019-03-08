@@ -8,6 +8,8 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
+- Show guild ID in `!servers` output.
+
 ### Changed
 
 ### Fixed

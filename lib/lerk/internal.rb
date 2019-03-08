@@ -3,7 +3,7 @@
 module Lerk
   module Internal
     SERVER_FORMAT_STRING = "Server count: %d\n%s"
-    SERVER_ENTRY_FORMAT_STRING = '- %s (Owner: %s/%s, Member count: %d) <%s>'
+    SERVER_ENTRY_FORMAT_STRING = '- %s/%s (Owner: %s/%s, Member count: %d) <%s>'
 
     def self.register(bot)
       @bot = bot
@@ -130,6 +130,7 @@ module Lerk
       server_entries = servers.map do |_, server|
         SERVER_ENTRY_FORMAT_STRING % [
           server.name,
+          server.id,
           server.owner.username,
           server.owner.id,
           server.member_count,
