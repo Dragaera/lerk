@@ -8,6 +8,8 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
+- `!invite` command to create invite to one guild.
+
 ### Changed
 
 ### Fixed
