@@ -8,8 +8,6 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
-- Show guild ID in `!servers` output.
-
 ### Changed
 
 ### Fixed
@@ -19,6 +17,13 @@ glance - what to expact from upgrading to a new version.
 ### Deprecated
 
 ### Removed
+
+
+## [0.30.0] - 2019-03-08
+
+### Added
+
+- Show guild ID in `!servers` output.
 
 
 ## [0.29.0] - 2019-03-08
