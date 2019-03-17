@@ -71,6 +71,17 @@ which have no default, but are required for operation.
 | -----------------------| -------- | ------------------------------- | --------------------------------- |
 | `OBSERVATORY_BASE_URL` | n        | https://observatory.morrolan.ch | Base URL of observatory instance. |
 
+#### Gorge
+
+| Variable                     | Default value | Required | Description                                               |
+| ---------------------------- | ------------- | -------- | --------------------------------------------------------- |
+| `GORGE_BASE_URL`             |               | n        | Base URL of Gorge. Empty to disable Gorge integration.    |
+| `GORGE_HTTP_BASIC_USER`      |               | n        | User for HTTP basic authentication. Empty to disable.     |
+| `GORGE_HTTP_BASIC_PASSWORD ` |               | n        | Password for HTTP basic authentication. Empty to disable. |
+| `GORGE_CONNECT_TIMEOUT`      | 1             | y        | HTTP connect timeout towards Gorge API.                   |
+| `GORGE_TIMEOUT`              | 2             | y        | HTTP timeout towards Gorge API.                           |
+| `STATISTICS_CLASS`           | n_30          | y        | Statistics class of Gorge which to query                  |
+
 #### Excuse
 
 | Setting                          | Required | Default | Description                                                |

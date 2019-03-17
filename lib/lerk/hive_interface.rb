@@ -10,8 +10,8 @@ module Lerk
     extend Silverball::Numbers
 
     GORGE_MESSAGE_TEMPLATE = <<EOF
-**K/D**: **Alien**: %{kd_alien}, **Marine**: %{kd_marine}
-**Acc**: **Alien**: %{accuracy_alien}%%, **Marine (no Onos)**: %{accuracy_marine}%%
+**K/D (%{sample_size} rounds)**: **Alien**: %{kd_alien}, **Marine**: %{kd_marine}
+**Acc (%{sample_size} rounds)**: **Alien**: %{accuracy_alien}%%, **Marine (no Onos)**: %{accuracy_marine}%%
 EOF
 
     PLAINTEXT_MESSAGE_TEMPLATE = <<EOF
@@ -141,7 +141,11 @@ EOF
       @cmd_counter.increment({ status: :success }, event: event)
       @event_hive_success.count(discord_user)
 
-      gorge_statistics = format_gorge_data(gorge_query(account_id))
+      gorge_statistics = format_gorge_data(
+        gorge_query(
+          account_id
+        )
+      )
 
       args = {
         alias:            data.alias,
@@ -247,7 +251,10 @@ EOF
         opts
       )
 
-      client.player_statistics(steam_id)
+      client.player_statistics(
+        steam_id,
+        statistics_classes: [Config::Gorge::STATISTICS_CLASS]
+      )
     rescue Gorgerb::Error => e
       nil
     end
@@ -256,26 +263,30 @@ EOF
       if gorge_data
         args = {}
 
-        args[:kd_alien] = if gorge_data.kdr.alien
-                            gorge_data.kdr.alien.round(2)
+        data = gorge_data.send(Config::Gorge::STATISTICS_CLASS)
+
+        args[:sample_size] = data.meta.sample_size
+
+        args[:kd_alien] = if data.kdr.alien
+                            data.kdr.alien.round(2)
                           else
                             'N/A'
                           end
 
-        args[:kd_marine] = if gorge_data.kdr.marine
-                             gorge_data.kdr.marine.round(2)
+        args[:kd_marine] = if data.kdr.marine
+                             data.kdr.marine.round(2)
                            else
                              'N/A'
                            end
 
-        args[:accuracy_alien] = if gorge_data.accuracy.alien
-                                  (100 * gorge_data.accuracy.alien).round(1)
+        args[:accuracy_alien] = if data.accuracy.alien
+                                  (100 * data.accuracy.alien).round(1)
                                 else
                                   'N/A'
                                 end
 
-        args[:accuracy_marine] = if gorge_data.accuracy.marine.no_onos
-                                   (100 * gorge_data.accuracy.marine.no_onos).round(1)
+        args[:accuracy_marine] = if data.accuracy.marine.no_onos
+                                   (100 * data.accuracy.marine.no_onos).round(1)
                                  else
                                    'N/A'
                                  end
