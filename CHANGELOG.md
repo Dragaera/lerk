@@ -11,6 +11,7 @@ glance - what to expact from upgrading to a new version.
 ### Changed
 
 - Add wiki link to `!tiplist movement`.
+- Update dependencies.
 
 ### Fixed
 
