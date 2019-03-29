@@ -21,8 +21,6 @@ glance - what to expact from upgrading to a new version.
 
 ## [0.32.0] - 2019-03-29
 
-### Added
-
 ### Changed
 
 - Add wiki link to `!tiplist movement`.
