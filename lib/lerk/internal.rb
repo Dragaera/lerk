@@ -100,7 +100,7 @@ module Lerk
 
       @bot.command(
         :invite,
-        description: 'Attempt to generat an invite to a guild',
+        description: 'Attempt to generate an invite to a guild',
         usage: '!invite <guild_id>',
         min_args: 1,
         max_args: 1,

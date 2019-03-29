@@ -12,6 +12,8 @@ glance - what to expact from upgrading to a new version.
 
 ### Fixed
 
+- Typo in usage message of `!invite`.
+
 ### Security
 
 ### Deprecated
