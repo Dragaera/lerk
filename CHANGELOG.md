@@ -10,18 +10,27 @@ glance - what to expact from upgrading to a new version.
 
 ### Changed
 
-- Add wiki link to `!tiplist movement`.
-- Update dependencies.
-
 ### Fixed
-
-- Typo in usage message of `!invite`.
 
 ### Security
 
 ### Deprecated
 
 ### Removed
+
+
+## [0.32.0] - 2019-03-29
+
+### Added
+
+### Changed
+
+- Add wiki link to `!tiplist movement`.
+- Update dependencies.
+
+### Fixed
+
+- Typo in usage message of `!invite`.
 
 
 ## [0.31.0] - 2019-03-17
