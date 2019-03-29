@@ -123,7 +123,7 @@ module Lerk
       elsif arg == 'guide'
         "List of Advanced Tutorials:\nhttps://steamcommunity.com/sharedfiles/filedetails/?id=1359882555"
       elsif arg == 'movement'
-        "This is the Movement Mechanics Tutorial that explains the Movement of NS2.\nhttps://steamcommunity.com/sharedfiles/filedetails/?id=1416909558\nIt included a keyboard overlay that should help you to learn how to it works :smiley:"
+        "This is the Movement Mechanics Tutorial that explains the Movement of NS2.\nhttps://steamcommunity.com/sharedfiles/filedetails/?id=1416909558\nIt included a keyboard overlay that should help you to learn how to it works :smiley:\nTheory: https://wiki.naturalselection2.com/view/Movement"
       elsif arg == 'voyeur'
         'https://www.twitch.tv/directory/game/Natural%20Selection%20II/videos/all'
       else
