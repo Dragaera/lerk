@@ -108,3 +108,10 @@ which have no default, but are required for operation.
 | Setting                       | Required | Default | Description                                            |
 | ----------------------------- | -------- | ------- | ------------------------------------------------------ |
 | `HINTS_SNARKY_COMMENT_CHANCE` | n        | 100     | Reciprocal of chance of a snarky comment, rather than a helpful hint, being returned. Set to `0` to disable snarky comments. |
+
+#### Emerald
+
+| Setting                        | Required | Default | Description                                               |
+| ------------------------------ | -------- | ------- | --------------------------------------------------------- |
+| `EMERALD_BASE_URL`             | n        |         | Base URL of Emerald. Set to empty to disable integration. |
+| `EMERALD_MAXIMUM_INPUT_LENGTH` | n        | 500     | Maximum size of input which to accept.                    |
