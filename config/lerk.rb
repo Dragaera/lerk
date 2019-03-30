@@ -99,5 +99,10 @@ EOF
       USER     = ENV['DB_USER']
       PASS     = ENV['DB_PASS']
     end
+
+    module Emerald
+      BASE_URL             = ENV.fetch('EMERALD_BASE_URL', '')
+      MAXIMUM_INPUT_LENGTH = ENV.fetch('EMERALD_MAXIMUM_INPUT_LENGTH', '500').to_i
+    end
   end
 end

@@ -8,6 +8,8 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
+- `!latex` command to render simple LaTeX expressions.
+
 ### Changed
 
 ### Fixed

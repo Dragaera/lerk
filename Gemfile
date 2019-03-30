@@ -15,6 +15,8 @@ gem 'rake'
 
 gem 'warning'
 
+gem 'typhoeus'
+
 # Resolving Steam IDs
 gem 'steam-id2', '~> 0.4.5'
 
