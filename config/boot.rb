@@ -24,3 +24,5 @@ require 'lib/lerk/logger'
 require 'config/database'
 
 require 'lerk'
+
+Typhoeus::Config.user_agent = "Lerk (https://github.com/Dragaera/lerk) #{ Lerk::VERSION }"

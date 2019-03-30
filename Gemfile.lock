@@ -120,6 +120,7 @@ DEPENDENCIES
   sequel_pg
   silverball (~> 0.1.0)
   steam-id2 (~> 0.4.5)
+  typhoeus
   warning
 
 BUNDLED WITH
