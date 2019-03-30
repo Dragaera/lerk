@@ -8,8 +8,6 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
-- `!latex` command to render simple LaTeX expressions.
-
 ### Changed
 
 ### Fixed
@@ -19,6 +17,13 @@ glance - what to expact from upgrading to a new version.
 ### Deprecated
 
 ### Removed
+
+
+## [0.33.0] - 2019-03-30
+
+### Added
+
+- `!latex` command to render simple LaTeX expressions.
 
 
 ## [0.32.0] - 2019-03-29
