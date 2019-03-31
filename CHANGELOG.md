@@ -12,6 +12,8 @@ glance - what to expact from upgrading to a new version.
 
 ### Fixed
 
+- `!latex` command was logged as `!version`.
+
 ### Security
 
 ### Deprecated
