@@ -33,7 +33,7 @@ module Lerk
     end
 
     def self.command_latex(event, latex)
-      @logger.command(event, 'latex')
+      @logger.command(event, 'latex', { latex: latex })
       @cmd_latex_counter.increment({ status: :success }, event: event)
 
       if Config::Emerald::BASE_URL.empty?
