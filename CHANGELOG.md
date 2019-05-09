@@ -10,18 +10,25 @@ glance - what to expact from upgrading to a new version.
 
 ### Changed
 
-- Update dependencies, update base image to 2.6.3.
-- Change `!tiplist guide` link to point to the wiki.
-
 ### Fixed
-
-- `!latex` command was logged as `!version`.
 
 ### Security
 
 ### Deprecated
 
 ### Removed
+
+
+## [0.34.0] - 2019-05-09
+
+### Changed
+
+- Update dependencies, update base image to 2.6.3.
+- Change `!tiplist guide` link to point to the wiki.
+
+### Fixed
+
+- `!latex` command was logged as `!version`.
 
 
 ## [0.33.0] - 2019-03-30
