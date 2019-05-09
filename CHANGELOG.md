@@ -11,6 +11,7 @@ glance - what to expact from upgrading to a new version.
 ### Changed
 
 - Update dependencies, update base image to 2.6.3.
+- Change `!tiplist guide` link to point to the wiki.
 
 ### Fixed
 
