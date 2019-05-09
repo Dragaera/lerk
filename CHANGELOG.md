@@ -10,6 +10,8 @@ glance - what to expact from upgrading to a new version.
 
 ### Changed
 
+- Update dependencies, update base image to 2.6.3.
+
 ### Fixed
 
 - `!latex` command was logged as `!version`.
