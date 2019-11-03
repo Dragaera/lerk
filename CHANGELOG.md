@@ -8,6 +8,8 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
+- Sanitze input to `!hive`, reverting forced emoji shortcuts.
+
 ### Changed
 
 ### Fixed
