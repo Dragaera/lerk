@@ -107,6 +107,7 @@ EOF
 
     def self.command_hive(event, steam_id)
       discord_user = Util.discord_user_from_database(event)
+      steam_id = Util.sanitize_discord_input(steam_id)
 
       if rate_limited?(event)
         @cmd_counter.increment({ status: :rate_limited }, event: event)
