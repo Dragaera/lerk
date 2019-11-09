@@ -20,6 +20,8 @@ gem 'warning'
 
 gem 'typhoeus'
 
+gem 'oauth2'
+
 # Resolving Steam IDs
 gem 'steam-id2', '~> 0.4.5'
 

@@ -8,6 +8,8 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
+- Allow automatically linking Discord-conneced Steam account via `!link` 
+
 ### Changed
 
 ### Fixed
