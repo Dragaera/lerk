@@ -14,6 +14,8 @@ gem 'sequel_pg', require: 'sequel'
 gem 'sinatra'
 gem 'haml'
 
+gem 'puma'
+
 gem 'rake'
 
 gem 'warning'
