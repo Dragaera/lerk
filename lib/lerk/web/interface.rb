@@ -6,6 +6,10 @@ module Lerk
       set :sessions, true
       set :views, settings.root + '/views'
 
+      get '/' do
+        haml :index
+      end
+
       get '/oauth' do
         secret = params['state']
         code   = params['code']
