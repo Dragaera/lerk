@@ -11,6 +11,9 @@ gem 'sequel'
 gem 'pg'
 gem 'sequel_pg', require: 'sequel'
 
+gem 'sinatra'
+gem 'haml'
+
 gem 'rake'
 
 gem 'warning'
@@ -29,6 +32,7 @@ gem 'silverball', '~> 0.1.0'
 
 group :development do
   gem 'pry'
+  gem 'shotgun'
 end
 
 group :testing do

@@ -19,3 +19,5 @@ require 'lerk/util'
 require 'lerk/worker'
 
 require 'lerk/prometheus'
+
+require 'lerk/web'
