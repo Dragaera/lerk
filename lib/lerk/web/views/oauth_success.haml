@@ -1,6 +1,7 @@
 %h1 Connections sucessfully linked
 
-%p= "The following connections were linked to Discord user #{ discord_user.discord_id }:"
+%p
+  = "The following connections were linked to Discord user #{ discord_user.discord_id }:"
 
 %ul
   - linked_connections.each do |con|
