@@ -1,6 +1,7 @@
 version: '3'
 
 networks:
+  lerk-docker:
   lerk-dev:
   lerk-testing:
 
@@ -25,3 +26,25 @@ services:
       - lerk-testing
     ports:
       - 25432:5432
+
+  database-docker:
+    image: 'postgres:9.6'
+    env_file: .env.docker
+    networks:
+      - lerk-docker
+
+  lerk-docker:
+    image: 'lavode/lerk:latest'
+    env_file: .env.docker
+    networks:
+      - lerk-docker
+    command: bot
+
+  web-docker:
+    image: 'lavode/lerk:latest'
+    env_file: .env.docker
+    networks:
+      - lerk-docker
+    command: application
+    ports:
+      - 8080:8080

@@ -4,6 +4,12 @@ MAINTAINER Michael Senn <michael@morrolan.ch>
 
 EXPOSE 8080
 
+# Used by discordrb for voice encryption, and oauth -> jwt for some other encryption
+# Has to be installed as discordrb and jwt are able to handle absence of
+# libsodium gracefully, but if used in combination they do not - causing
+# exceptions (https://github.com/discordrb/discordrb/issues/639)
+RUN apt-get update && apt-get install -y libsodium23 libsodium-dev
+
 # Tiny Init. (Reap zombies, forward signals)
 ENV TINI_VERSION v0.18.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
