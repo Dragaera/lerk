@@ -8,8 +8,6 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
-- Allow automatically linking Discord-conneced Steam account via `!link` 
-
 ### Changed
 
 ### Fixed
@@ -19,6 +17,17 @@ glance - what to expact from upgrading to a new version.
 ### Deprecated
 
 ### Removed
+
+
+## [0.36.0] - 2019-11-10
+
+### Added
+
+- Allow automatically linking Discord-connected Steam account via `!link` 
+
+### Changed
+
+- Update ruby to `2.6.5`, update dependencies.
 
 
 ## [0.35.0] - 2019-11-03
