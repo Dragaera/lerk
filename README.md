@@ -115,3 +115,22 @@ which have no default, but are required for operation.
 | ------------------------------ | -------- | ------- | --------------------------------------------------------- |
 | `EMERALD_BASE_URL`             | n        |         | Base URL of Emerald. Set to empty to disable integration. |
 | `EMERALD_MAXIMUM_INPUT_LENGTH` | n        | 500     | Maximum size of input which to accept.                    |
+
+#### Puma
+
+| Variable            | Default value | Required | Description                                                                                                                                   |
+| ------------------- | ------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `PUMA_LISTEN_IP`    | 0.0.0.0       | y        | IP which the application server will bind to. If you run this application outside of a Docker container, you will likely want to change this! |
+| `PUMA_LISTEN_PORT`  | 8080          | y        | Port which the application server will bind to.                                                                                               |
+| `PUMA_THREADS_MIN`  | 0             | y        | Initial number of threads to spawn per worker.                                                                                                |
+| `PUMA_THREADS_MAX`  | 16            | y        | Maximum number of threads to spawn per worker.                                                                                                |
+| `PUMA_WORKERS`      | 2             | y        | Number of worker processes to spawn.                                                                                                          |
+
+#### Discord OAuth
+
+| Setting                       | Required | Default                               | Description                                               |
+| ----------------------------- | -------- | ------------------------------------- | --------------------------------------------------------- |
+| `DISCORD_OAUTH_BASE_URL`      | n        | https://discordapp.com                | Base URL of Discord API                                   |
+| `DISCORD_OAUTH_CLIENT_ID`     | n        |                                       | OAuth client ID                                           |
+| `DISCORD_OAUTH_CLIENT_SECRET` | n        |                                       | OAuth client secret                                       |
+| `DISCORD_OAUTH_CALLBACK_URL`  | n        | https://hivestalker.morrolan.ch/oauth | OAuth callback URL                                        |

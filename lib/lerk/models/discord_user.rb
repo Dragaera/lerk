@@ -56,6 +56,13 @@ module Lerk
       ).fetch('id')
       logger.debug("User ID from Discord: #{ api_discord_id }, user ID from nonce: #{ discord_id }")
       unless api_discord_id == discord_id
+        # The nonce (`state` parameter of OAuth call) gives us the Discord ID
+        # of the person who used `!link`. A API call using the OAuth token
+        # gives us the Discord ID of the person who clicked on the link (&
+        # authorized access to their connections).
+        # Only if both match do we actually link them in our DB. This prevents
+        # linking your Steam account to others' Discord accounts, as well as
+        # having others' Steam account linked to your Discord account.
         logger.warn("Mismatch between Discord IDs, potentially forged request. Aborting.")
         return nil
       end
