@@ -5,8 +5,6 @@ module Lerk
     one_to_many :event_counters
 
     OAUTH_SCOPES = %w(connections identify)
-    DISCORD_CONNECTIONS_ENDPOINT = '/api/users/@me/connections'
-    DISCORD_IDENTIFY_ENDPOINT = '/api/users/@me'
 
     @@logger = ::Lerk.logger
 
@@ -49,18 +47,23 @@ module Lerk
       token = exchange_oauth_code(code)
       logger.debug("OAuth: Got token #{ token.token }")
 
-      discord_identity = JSON.parse(token.get(DISCORD_IDENTIFY_ENDPOINT).body)
-      api_discord_id = discord_identity.fetch('id')
+      # discordrb passes the `token` parameter directly as contents of the
+      # authorization header.
+      auth = "Bearer #{ token.token }"
+
+      api_discord_id = JSON.parse(
+        Discordrb::API::User.profile(auth)
+      ).fetch('id')
       logger.debug("User ID from Discord: #{ api_discord_id }, user ID from nonce: #{ discord_id }")
       unless api_discord_id == discord_id
         logger.warn("Mismatch between Discord IDs, potentially forged request. Aborting.")
         return nil
       end
 
-      api_response = token.get(
-        DISCORD_CONNECTIONS_ENDPOINT
+      connections = JSON.parse(
+        Discordrb::API::User.connections(auth)
       )
-      connections = JSON.parse(api_response.body)
+
       steam = connections.select { |con| con['type'] == 'steam' }.first
       return nil unless steam
 
@@ -84,6 +87,9 @@ module Lerk
       else
         return nil
       end
+    rescue JSON::ParserError, RestClient::Exception, Errno::ECONNREFUSED, Discordrb::Errors::NoPermission => e
+      logger.error("#{ e.class } while linking Discord connections: #{ e.message }")
+      return nil
     end
 
     def exchange_oauth_code(access_code)

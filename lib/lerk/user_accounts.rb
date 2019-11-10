@@ -85,10 +85,10 @@ module Lerk
 
       user = Util.discord_user_from_database(event)
       url = user.oauth_auth_url
-      dm_msg = "Please click on the following link to link your Discord accounts:\n#{ url }"
+      dm_msg = "Please click on the following link to allow me to learn of your linked accounts:\n#{ url }"
       event.user.pm(dm_msg)
 
-      return "#{ event.user.mention }: You have been sent a direct message with a link. Open it to allow learning about your Discord-connected services."
+      return "#{ event.user.mention }: You have been sent a direct message with a link.\nClick on it to allow me to learn of your linked accounts."
 
     rescue Discordrb::Errors::NoPermission => e
       return "I was unable to send you a direct message, please adjust your settings to allow receiving DMs:\nRight click the server icon -> Privacy Settings -> Allow direct messages from server members"
