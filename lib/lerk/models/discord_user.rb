@@ -4,8 +4,11 @@ module Lerk
   class DiscordUser < Sequel::Model
     one_to_many :event_counters
 
-    OAUTH_SCOPES = %w(connections)
+    OAUTH_SCOPES = %w(connections identify)
     DISCORD_CONNECTIONS_ENDPOINT = '/api/users/@me/connections'
+    DISCORD_IDENTIFY_ENDPOINT = '/api/users/@me'
+
+    @@logger = ::Lerk.logger
 
     def self.get_or_create(discord_id, last_nick: nil)
       user = first(discord_id: discord_id)
@@ -16,6 +19,10 @@ module Lerk
       else
         DiscordUser.create(discord_id: discord_id, last_nick: last_nick || 'UNKNOWN_NICK')
       end
+    end
+
+    def logger
+      @@logger
     end
 
     def ignore
@@ -32,17 +39,27 @@ module Lerk
       client = Config::DiscordOAuth.client
       client.auth_code.authorize_url(
         redirect_uri: Config::DiscordOAuth::CALLBACK_URL,
-        scope: OAUTH_SCOPES.join(','),
+        scope: OAUTH_SCOPES.join(' '),
         state: oauth_secret
       )
     end
 
     def link_discord_connections(code:)
+      logger.debug("OAuth: Exchanging code #{ code } for token")
       token = exchange_oauth_code(code)
+      logger.debug("OAuth: Got token #{ token.token }")
+
+      discord_identity = JSON.parse(token.get(DISCORD_IDENTIFY_ENDPOINT).body)
+      api_discord_id = discord_identity.fetch('id')
+      logger.debug("User ID from Discord: #{ api_discord_id }, user ID from nonce: #{ discord_id }")
+      unless api_discord_id == discord_id
+        logger.warn("Mismatch between Discord IDs, potentially forged request. Aborting.")
+        return nil
+      end
+
       api_response = token.get(
         DISCORD_CONNECTIONS_ENDPOINT
       )
-
       connections = JSON.parse(api_response.body)
       steam = connections.select { |con| con['type'] == 'steam' }.first
       return nil unless steam
@@ -75,7 +92,7 @@ module Lerk
       token = client.auth_code.get_token(
         access_code,
         redirect_uri: Config::DiscordOAuth::CALLBACK_URL,
-        scope: OAUTH_SCOPES.join(',')
+        scope: OAUTH_SCOPES.join(' ')
       )
 
       # Store refresh token for later usage
