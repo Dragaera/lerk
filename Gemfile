@@ -11,11 +11,18 @@ gem 'sequel'
 gem 'pg'
 gem 'sequel_pg', require: 'sequel'
 
+gem 'sinatra'
+gem 'haml'
+
+gem 'puma'
+
 gem 'rake'
 
 gem 'warning'
 
 gem 'typhoeus'
+
+gem 'oauth2'
 
 # Resolving Steam IDs
 gem 'steam-id2', '~> 0.4.5'
@@ -29,6 +36,7 @@ gem 'silverball', '~> 0.1.0'
 
 group :development do
   gem 'pry'
+  gem 'shotgun'
 end
 
 group :testing do

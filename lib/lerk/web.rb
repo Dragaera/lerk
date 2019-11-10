@@ -1,0 +1,1 @@
+require 'lerk/web/interface'

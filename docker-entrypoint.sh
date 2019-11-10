@@ -6,6 +6,10 @@ fi
 echo "APPLICATION_ENV=$APPLICATION_ENV"
 
 case "$1" in
+    application)
+        echo "Starting application server..."
+        exec puma -C config/puma.rb
+        ;;
     bot)
         echo "Starting discord bot..."
         exec ruby bin/lerk

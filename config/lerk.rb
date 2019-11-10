@@ -104,5 +104,26 @@ EOF
       BASE_URL             = ENV.fetch('EMERALD_BASE_URL', '')
       MAXIMUM_INPUT_LENGTH = ENV.fetch('EMERALD_MAXIMUM_INPUT_LENGTH', '500').to_i
     end
+
+    module DiscordOAuth
+      CLIENT_ID     = ENV['DISCORD_OAUTH_CLIENT_ID']
+      CLIENT_SECRET = ENV['DISCORD_OAUTH_CLIENT_SECRET']
+      BASE_URL      = ENV.fetch('DISCORD_OAUTH_BASE_URL', 'https://discordapp.com')
+      CALLBACK_URL  = ENV.fetch('DISCORD_OAUTH_CALLBACK_URL', 'https://hivestalker.morrolan.ch/oauth')
+
+      def self.client
+        unless CLIENT_ID && CLIENT_SECRET
+          raise ArgumentError, 'Must configure DISCORD_OAUTH_CLIENT_ID and DISCORD_OAUTH_CLIENT_SOCKET to use this functionality.'
+        end
+
+        OAuth2::Client.new(
+          CLIENT_ID,
+          CLIENT_SECRET,
+          site: BASE_URL,
+          authorize_url: '/api/oauth2/authorize',
+          token_url: '/api/oauth2/token',
+        )
+      end
+    end
   end
 end
