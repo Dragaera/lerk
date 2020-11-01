@@ -10,8 +10,6 @@ glance - what to expact from upgrading to a new version.
 
 ### Changed
 
-- Use `bundle exec` to start binaries within Docker container
-
 ### Fixed
 
 ### Security
@@ -19,6 +17,13 @@ glance - what to expact from upgrading to a new version.
 ### Deprecated
 
 ### Removed
+
+
+## [0.37.1] - 2020-11-01
+
+### Changed
+
+- Use `bundle exec` to start binaries within Docker container
 
 
 ## [0.37.0] - 2020-11-01
