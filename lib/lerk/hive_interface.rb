@@ -14,18 +14,43 @@ module Lerk
 **Acc (%{sample_size} rounds)**: **Alien**: %{accuracy_alien}%%, **Marine (no Onos)**: %{accuracy_marine}%%
 EOF
 
-    PLAINTEXT_MESSAGE_TEMPLATE = <<EOF
-**%{alias}** (%{profile_url})
-**Skill**: %{skill}, **Level**: %{level}, **Score**: %{score}
+    EMBED_MESSAGE_TEMPLATE = <<EOF
+**Skill**:
+  - **Alien** (Field / Comm): %{skill_alien_field} / %{skill_alien_comm}
+  - **Marine** (Field / Comm): %{skill_marine_field} / %{skill_marine_comm}
 %{gorge_statistics}
 **Time**: **Total**: %{time_total}, **Alien**: %{time_alien}, **Marine**: %{time_marine}
 EOF
-    EMBED_MESSAGE_TEMPLATE = <<EOF
-**Skill**: %{skill}
-%{gorge_statistics}
-**Level**: %{level}
-**Score**: %{score}
-**Time**: **Total**: %{time_total}, **Alien**: %{time_alien}, **Marine**: %{time_marine}
+
+    DEBUG_MESSAGE_TEMPLATE = <<EOF
+```
+Alias: %{alias}
+Player ID: %{player_id}
+Steam ID: %{steam_id}
+
+Badges: %{badges}
+Reinforced tier: %{reinforced_tier}
+
+Field:
+  Skill: %{skill_field}
+  Offset: %{offset_field}
+  Adagrad: %{adagrad_field}
+
+Commander:
+  Skill: %{skill_commander}
+  Offset: %{offset_commander}
+  Adagrad: %{adagrad_commander}
+
+Time:
+  Alien: %{time_alien}
+  Marine: %{time_marine}
+  Commander: %{time_commander}
+  Total: %{time_total}
+
+Experience: %{experience}
+Level: %{level}
+Score: %{score}
+```
 EOF
 
     EVENT_KEY_HIVE_SUCCESS = 'cmd_hive_success'
@@ -96,16 +121,24 @@ EOF
       @bot.command(
         [:hive],
         description: 'Retrieve Hive player data',
-        usage: '!hive [Steam ID | Default: Discord username]',
+        usage: '!hive [--debug] [Steam ID | Default: Linked account or Discord username]',
         min_args: 0,
-        max_args: 1,
-      ) do |event, steam_id|
+        max_args: 2,
+      ) do |event, arg1, arg2|
         return if Util.ignored?(event)
-        command_hive(event, steam_id)
+        command_hive(event, arg1, arg2)
       end
     end
 
-    def self.command_hive(event, steam_id)
+    def self.command_hive(event, arg1, arg2)
+      if arg1 == '--debug'
+        steam_id = arg2
+        debug = true
+      else
+        steam_id = arg1
+        debug = false
+      end
+
       discord_user = Util.discord_user_from_database(event)
       steam_id = Util.sanitize_discord_input(steam_id)
 
@@ -142,32 +175,58 @@ EOF
       @cmd_counter.increment({ status: :success }, event: event)
       @event_hive_success.count(discord_user)
 
+      gorge_data = gorge_query(account_id)
       gorge_statistics = format_gorge_data(
-        gorge_query(
-          account_id
-        )
+        gorge_data
       )
 
+      if debug
+        args = {
+          alias: data.alias,
+          player_id: data.player_id,
+          steam_id: data.steam_id,
+
+          badges: data.badges.inspect,
+          reinforced_tier: data.reinforced_tier,
+
+          skill_field: data.skill,
+          offset_field: data.skill_offset,
+          adagrad_field: data.adagrad_sum,
+
+          skill_commander: data.commander_skill,
+          offset_commander: data.commander_skill_offset,
+          adagrad_commander: data.commander_adagrad_sum,
+
+          time_alien: data.time_alien,
+          time_marine: data.time_marine,
+          time_commander: data.time_commander,
+          time_total: data.time_total,
+
+          experience: data.experience,
+          level: data.level,
+          score: data.score,
+        }
+        return DEBUG_MESSAGE_TEMPLATE % args
+      end
+
+      skills = data.specific_skills
       args = {
-        alias:            data.alias,
-        profile_url:      observatory_url(account_id),
-        skill:            self.number_with_separator(data.skill),
-        level:            data.level,
-        score:            self.number_with_separator(data.score),
-        time_total:       self.timespan_in_words(data.time_total,  unit: :hours, round: 1),
-        time_alien:       self.timespan_in_words(data.time_alien,  unit: :hours, round: 1),
-        time_marine:      self.timespan_in_words(data.time_marine, unit: :hours, round: 1),
-        gorge_statistics: gorge_statistics.chomp,
+        alias:              data.alias,
+        profile_url:        observatory_url(account_id),
+        skill_alien_field:  self.number_with_separator(skills.alien.field),
+        skill_alien_comm:   self.number_with_separator(skills.alien.commander),
+        skill_marine_field: self.number_with_separator(skills.marine.field),
+        skill_marine_comm:  self.number_with_separator(skills.marine.commander),
+        time_total:         self.timespan_in_words(data.time_total,  unit: :hours, round: 1),
+        time_alien:         self.timespan_in_words(data.time_alien,  unit: :hours, round: 1),
+        time_marine:        self.timespan_in_words(data.time_marine, unit: :hours, round: 1),
+        gorge_statistics:   gorge_statistics.chomp,
       }
 
-      if Config::HiveInterface::ENABLE_EMBEDS
-        event.channel.send_embed do |embed|
-          embed.title = args[:alias]
-          embed.url   = args[:profile_url]
-          embed.description = EMBED_MESSAGE_TEMPLATE % args
-        end
-      else
-        PLAINTEXT_MESSAGE_TEMPLATE % args
+      event.channel.send_embed do |embed|
+        embed.title = args[:alias]
+        embed.url   = args[:profile_url]
+        embed.description = EMBED_MESSAGE_TEMPLATE % args
       end
     end
 
