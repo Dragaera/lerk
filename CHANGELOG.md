@@ -8,18 +8,27 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
-- Support for per-team and per-position skill
-- `--debug` output for `!hive` command
-
 ### Changed
-
-- Update bundler and dependencies.
 
 ### Fixed
 
 ### Security
 
 ### Deprecated
+
+### Removed
+
+
+## [0.37.0] - 2020-11-01
+
+### Added
+
+- Support for per-team and per-position skill
+- `--debug` output for `!hive` command
+
+### Changed
+
+- Update bundler and dependencies.
 
 ### Removed
 
