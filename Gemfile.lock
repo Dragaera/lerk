@@ -37,7 +37,7 @@ GEM
     haml (5.2.0)
       temple (>= 0.8.0)
       tilt
-    hive-stalker (0.2.0)
+    hive-stalker (0.3.0)
       typhoeus
     http-accept (1.7.0)
     http-cookie (1.0.3)
@@ -143,7 +143,7 @@ DEPENDENCIES
   factory_bot
   gorgerb (~> 0.2.0)
   haml
-  hive-stalker (~> 0.2.0)
+  hive-stalker (~> 0.3.0)
   oauth2
   pg
   prometheus-client (~> 0.7.1)
