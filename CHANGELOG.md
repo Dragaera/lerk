@@ -10,6 +10,8 @@ glance - what to expact from upgrading to a new version.
 
 ### Changed
 
+- Use `bundle exec` to start binaries within Docker container
+
 ### Fixed
 
 ### Security
