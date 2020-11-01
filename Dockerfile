@@ -20,11 +20,13 @@ RUN groupadd -r lerk && useradd -r -g lerk lerk
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
+# 2.6.5 image comes with 1.x, while we require 2.x of bundler
+RUN gem install bundler
 # Throw error if Gemfile was modified after Gemfile.lock
 RUN bundle config --global frozen 1
 # Installing gems before copying source allows caching of gem installation.
 COPY Gemfile Gemfile.lock /usr/src/app/
-RUN bundle install --without development
+RUN bundle config set without development && bundle install
 COPY . /usr/src/app
 
 RUN chmod +x "./docker-entrypoint.sh"

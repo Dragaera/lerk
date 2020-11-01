@@ -99,7 +99,7 @@ GEM
       rspec-support (~> 3.10.0)
     rspec-support (3.10.0)
     ruby2_keywords (0.0.2)
-    sequel (5.37.0)
+    sequel (5.38.0)
     sequel_pg (1.14.0)
       pg (>= 0.18.0, != 1.2.0)
       sequel (>= 4.38.0)
